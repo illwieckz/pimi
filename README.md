@@ -4,7 +4,7 @@ TrueCombat Installer
 Description
 -----------
 
-This tool helps user to install TrueCombat mods on GNU/Linux systems.
+This tool helps user to install [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
 
 Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engines are supported since they are the only way to get a working setup in modern distributions.
 
