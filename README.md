@@ -8,10 +8,7 @@ Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engi
 Current mods supported:
 
 * **TrueCombat:Close Quarter Battle alpha 0.223** for Wolfenstein: Ennemy Territory
-* **TrueCombat:Elite beta 0.4 build 9** for Wolfenstein: Ennemy Territory
-
-To be available:
-
+* **TrueCombat:Elite beta 0.49b** for Wolfenstein: Ennemy Territory
 * **TrueCombat 1.3** for Quake Ⅲ Arena
 
 This script is distributed under the highly permissive [ISC License](COPYING.md).
