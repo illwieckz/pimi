@@ -400,7 +400,7 @@ pick_tce_full_tar_bz2 () {
 	fi
 }
 
-extract_tce_full_directory () {
+extract_tce_full_files () {
 	echo "Extracting ${tce_name} directory: ${tce_directory}"
 	if tar -C "${tce_directory}/." --strip-components=1 -xjf "${tce_full_tar_bz2_filepath}" $(tce_full_filename_list)
 	then
@@ -517,7 +517,7 @@ install_tce () {
 	&& extract_tce_full_run \
 	&& dump_tce_full_tar_gz \
 	&& pick_tce_full_tar_bz2 \
-	&& extract_tce_full_directory \
+	&& extract_tce_full_files \
 	&& extract_tce_patch_files
 }
 
