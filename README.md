@@ -4,9 +4,9 @@ TrueCombat Installer
 Description
 -----------
 
-This tool helps user to install [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
+This tool helps users to install [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
 
-Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engines are supported since they are the only way to get a working setup in modern distributions.
+Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engines are supported since they are the only viable way to get a working setup in modern distributions.
 
 Current mods supported:
 
@@ -16,7 +16,7 @@ Current mods supported:
 
 This tool can help users to install these mods or to help packagers to build a package or write an installer around this downloader.
 
-HOW TO
+How to
 ------
 
 By default `./truecombat_installer.sh`
@@ -37,8 +37,10 @@ will install _True Combat:Close Quarter Battle_, _TrueCombat:Elite_ and _TrueCom
 
 See `./truecombat_installer.sh --help` for detailed information.
 
-WARNING
+Warning
 -------
+
+TrueCombat mods run on 32bit i386 platform only.
 
 TrueCombat:Elite is distributed as a bzip2 tarball inside a gzip tarball embeddeded in a gzipped shell script plus a zip patch archive.
 Extracting this mod will perform all these steps backwards, and will fill some gigabytes in your temporary directory.
@@ -47,12 +49,12 @@ It's a good idea to install mods in a temporary directory and to check if all is
 
 No warranty is given, use this at your own risk.
 
-AUTHOR
+Author
 ------
 
 Thomas Debesse <dev@illwieckz.net>
 
-COPYRIGHT
+Copyright
 ---------
 
 This script is distributed under the highly permissive and laconic [ISC License](COPYING.md).
