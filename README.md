@@ -34,6 +34,8 @@ All this things can be changed, for example this command:
 
 will install _True Combat:Close Quarter Battle_, _TrueCombat:Elite_ and _TrueCombat 1.3_ inside _Enemy Territory: Legacy_ and _ioquake3_ system directories.
 
+See `./truecombat_installer.sh --help` for detailed information.
+
 AUTHOR
 ------
 
