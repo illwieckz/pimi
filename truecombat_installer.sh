@@ -602,7 +602,7 @@ print_config () {
 	echo "** download directory: ${download_directory}"
 	echo "** etlegacy directory: ${etlegacy_directory}"
 	echo "** ioquake3 directory: ${ioquake3_directory}"
-	echo "** mod list:${mod_list}"
+	echo "** mod list: ${mod_list}"
 }
 
 ## Main
