@@ -1,7 +1,11 @@
 #! /bin/sh
 
+## Legal
+########
+
 # Author:  Thomas DEBESSE <dev@illwieckz.net>
 # License: ISC
+
 
 ## Constants
 ############
@@ -14,15 +18,23 @@ constants () {
 
 	cqbtest_name="TrueCombat:Close Quarters Battle"
 	cqbtest_mod_name="cqbtest"
-	cqbtest_version="alpha 0.223"
+	cqbtest_version="alpha 0.22 patch 3"
+	cqbtest_date="2011-04-30"
 
 	tcetest_name="TrueCombat:Elite"
 	tcetest_mod_name="tcetest"
-	tcetest_version="beta 0.4 build 9b"
+	tcetest_version="beta 0.4 build 9 patch b"
+	tcetest_date="2007-01-01"
 
 	truecombat_name="TrueCombat"
 	truecombat_mod_name="truecombat"
-	truecombat_version="1.3"
+	truecombat_version="beta 1.3"
+	truecombat_date="2006-01-18"
+
+	q3tc045_name="TrueCombat"
+	q3tc045_mod_name="q3tc045"
+	q3tc045_version="beta 0.45 build 12"
+	q3tc045_date="3001-12-28"
 
 	wolfet_user_directory=".etwolf"
 	etlegacy_user_directory=".etlegacy"
@@ -85,15 +97,19 @@ constants () {
 	truecombat_patch_13_zip_sum="a828de3f99d62b1b2e6cfe4542a4bf651ce360f4b130bffb1607c5bf67dad0fa506ba2ff5ffc5cf3ab896f1ae16b4eca74f886192ff81b2d4c4461ffea61aeb3"
 	truecombat_patch_13_zip_size="58386008"
 	truecombat_patch_13_zip_hsize="56M"
+
+	q3tc045_full_zip_url="http://tce.merlin1991.at/tc/q3tc0.45b12beta.zip"
+	q3tc045_full_zip_filename="q3tc0.45b12beta.zip"
+	q3tc045_full_zip_sum="13be817b709e89d86540c2b307bc5f71e210370dd1a1e26736409b0d6d6665a65c3ce1d41f63cf3c37c35779de3b923db361df03c3ba13a17cfdec5af2524eb6"
+	q3tc045_full_zip_size="93394211"
+	q3tc045_full_zip_hsize="90M"
 }
 
 configure () {
-	etlegacy_directory="${HOME}/${etlegacy_user_directory}"
-	ioquake3_directory="${HOME}/${ioquake3_user_directory}"
-
 	cqbtest_directory="${etlegacy_directory}/${cqbtest_mod_name}"
 	tcetest_directory="${etlegacy_directory}/${tcetest_mod_name}"
 	truecombat_directory="${ioquake3_directory}/${truecombat_mod_name}"
+	q3tc045_directory="${ioquake3_directory}/${q3tc045_mod_name}"
 
 	cqbtest_full_zip_filepath="${download_directory}/${cqbtest_full_zip_filename}"
 	cqbtest_patch_zip_filepath="${download_directory}/${cqbtest_patch_zip_filename}"
@@ -107,6 +123,8 @@ configure () {
 	truecombat_full_11_zip_filepath="${download_directory}/${truecombat_full_11_zip_filename}"
 	truecombat_patch_12_zip_filepath="${download_directory}/${truecombat_patch_12_zip_filename}"
 	truecombat_patch_13_zip_filepath="${download_directory}/${truecombat_patch_13_zip_filename}"
+
+	q3tc045_full_zip_filepath="${download_directory}/${q3tc045_full_zip_filename}"
 }
 
 downloadable_filepath_list () {
@@ -218,6 +236,32 @@ truecombat_patch_13_zip_filename_list () {
 	website.url
 	EOF
 }
+
+q3tc045_full_zip_filename_list () {
+	cat <<-EOF
+	q3tc045/Build8.txt
+	q3tc045/Build9.txt
+	q3tc045/Build10.txt
+	q3tc045/build11.txt
+	q3tc045/Build12.txt
+	q3tc045/description.txt
+	q3tc045/games.log
+	q3tc045/Icon_045.ico
+	q3tc045/MODELS/q3t_players/BOSSMAN/BOSSMAN.TXT
+	q3tc045/pak0.PK3
+	q3tc045/pak1.pk3
+	q3tc045/pak2.pk3
+	q3tc045/pak3.pk3
+	q3tc045/pak4.pk3
+	q3tc045/pak5.pk3
+	q3tc045/pak6.pk3
+	q3tc045/q3config.cfg
+	q3tc045/q3tc_server.cfg
+	q3tc045/README.TXT
+	q3tc045/TCDED.PL
+	EOF
+}
+
 
 ## Common Stuff
 ###############
@@ -358,6 +402,7 @@ extract_cqbtest_patch_files () {
 	fi
 }
 
+
 ## TrueCombat:Elite Stuff
 #########################
 
@@ -458,8 +503,9 @@ extract_tcetest_patch_files () {
 	fi
 }
 
-## TrueCombat Stuff
-###################
+
+## TrueCombat 1.3 Stuff
+#######################
 
 check_truecombat_directory () {
 	check_directory "${truecombat_directory}" "${truecombat_name}"
@@ -522,6 +568,33 @@ download_truecombat_patch_13_zip () {
 	fi
 }
 
+## TrueCombat 0.45 Stuff
+########################
+
+check_q3tc045_directory () {
+	check_directory "${q3tc045_directory}" "${q3tc045_name}"
+}
+
+download_q3tc045_full_zip () {
+	if download "${q3tc045_full_zip_url}" "${q3tc045_full_zip_filepath}" "${q3tc045_name} patch file (${q3tc045_full_zip_hsize})"
+	then
+		verify "${q3tc045_full_zip_filepath}" "${q3tc045_full_zip_sum}" "${q3tc045_name} patch file"
+	fi
+}
+
+extract_q3tc045_full_files () {
+	echo "Extracting ${q3tc045_name} zip files"
+	if 7z x -y -o"${q3tc045_directory}/../" "${q3tc045_full_zip_filepath}" $(q3tc045_full_zip_filename_list) >/dev/null
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
+
 ## Purge
 ########
 
@@ -560,10 +633,11 @@ purge () {
 	fi
 }
 
+
 ## Installation
 ###############
 
-install_cqb () {
+install_cqbtest () {
 	check_download_directory \
 	&& check_etlegacy_directory \
 	&& check_cqbtest_directory \
@@ -573,7 +647,7 @@ install_cqb () {
 	&& extract_cqbtest_patch_files
 }
 
-install_tce () {
+install_tcetest () {
 	check_download_directory \
 	&& check_etlegacy_directory \
 	&& check_tcetest_directory \
@@ -586,7 +660,7 @@ install_tce () {
 	&& extract_tcetest_patch_files
 }
 
-install_tc () {
+install_truecombat () {
 	check_download_directory \
 	&& check_ioquake3_directory \
 	&& check_truecombat_directory \
@@ -598,6 +672,14 @@ install_tc () {
 	&& extract_truecombat_patch_13_files
 }
 
+install_q3tc045 () {
+	check_download_directory \
+	&& check_ioquake3_directory \
+	&& check_q3tc045_directory \
+	&& download_q3tc045_full_zip \
+	&& extract_q3tc045_full_files
+}
+
 ## Arguments
 ############
 
@@ -606,10 +688,12 @@ print_help () {
 	cat <<-EOF
 	Usage: ${0} [OPTION]... [MOD NAME]...
 	
-	${0} is a tool to install TrueCombat mods for ${wolfet_name} and ${quake3_name} games.
+	${0} is a tool to install TrueCombat mods for ${wolfet_name}
+	  and ${quake3_name} games.
 	
 	Without MOD NAME:
-	- installs ${cqbtest_name} ${cqbtest_version} for ${wolfet_name} in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
+	- installs ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}
+	  in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
 
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
@@ -618,9 +702,9 @@ print_help () {
 	- asks user before doing anything.
 
 	OPTIONS
-	${tab}-dl=PATH,  --download-directory=PATH    download files in this directory
-	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods in this directory
-	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods in this directory
+	${tab}-dl=PATH,  --download-directory=PATH    download files in PATH directory
+	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods in PATH directory
+	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods in PATH directory
 
 	${tab}-ni, --not-interactive    do not ask before doing anything
 	${tab}-f,  --force-redownload   force to download again already downloaded files
@@ -631,9 +715,10 @@ print_help () {
 	${tab}cqb, cqbtest   ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}
 	${tab}tce, tcetest   ${tcetest_name} ${tcetest_version} for ${wolfet_name}
 	${tab}truecombat     ${truecombat_name} ${truecombat_version} for ${quake3_name}
+	${tab}q3tc045        ${q3tc045_name} ${q3tc045_version} for ${quake3_name}
 
 	${tab}default        an alias for “cqbtest”
-	${tab}all            an alias for “cqbtest tcetest truecombat”
+	${tab}all            an alias for “cqbtest tcetest truecombat q3tc045”
 
 	${tab}nothing        nothing
 
@@ -648,21 +733,25 @@ print_help () {
 	  automatically delete temporary files, in non interactive mode:
 	$ ${0} -p -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
-	To install ${tcetest_name} mod in ${wolfet_name} user directory (not recommended at all):
+	To install ${tcetest_name} mod inside ${wolfet_name} user directory
+	  (not recommended at all):
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
 	To install ${cqbtest_name}, ${tcetest_name} and ${truecombat_name} mods
 	  inside ${etlegacy_name} and ${ioquake3_name} system directories (not recommended):
-	# ${0} -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
+	# ${0} -ioq="/usr/share/games/quake3" \\
+	    -etl="/usr/share/games/etlegacy" all
 	EOF
 }
 
 parse_args () {
+	etlegacy_directory="${HOME}/${etlegacy_user_directory}"
+	ioquake3_directory="${HOME}/${ioquake3_user_directory}"
+	download_directory="${default_download_directory}"
 	will_purge="false"
 	force_redownload="false"
 	install_nothing="false"
 	is_interactive="true"
-	download_directory="${default_download_directory}"
 	mod_list=""
 
 	for arg in ${@}
@@ -674,11 +763,14 @@ parse_args () {
 			tcetest|tce)
 				mod_list="${mod_list} tcetest"
 				;;
-			truecombat|tc)
+			truecombat)
 				mod_list="${mod_list} truecombat"
 				;;
+			q3tc045)
+				mod_list="${mod_list} q3tc045"
+				;;
 			all)
-				mod_list="cqbtest tcetest truecombat"
+				mod_list="cqbtest tcetest truecombat q3tc045"
 				;;
 			nothing)
 				install_nothing="true"
@@ -741,15 +833,19 @@ print_configuration () {
 			case "${mod_name}" in
 				cqbtest)
 					echo "- ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}"
-					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					echo "  ${mod_name} in ${cqbtest_directory}"
 					;;
 				tcetest)
 					echo "- ${tcetest_name} ${tcetest_version} for ${wolfet_name}"
-					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					echo "  ${mod_name} in ${tcetest_directory}"
 					;;
 				truecombat)
 					echo "- ${truecombat_name} ${truecombat_version} for ${quake3_name}"
-					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					echo "  ${mod_name} in ${truecombat_directory}"
+					;;
+				q3tc045)
+					echo "- ${q3tc045_name} ${q3tc045_version} for ${quake3_name}"
+					echo "  ${mod_name} in ${q3tc045_directory}"
 					;;
 			esac
 		done
@@ -774,6 +870,7 @@ ask_continue () {
 	fi
 }
 
+
 ## Main
 #######
 
@@ -791,13 +888,16 @@ main () {
 		do
 			case "${mod_name}" in
 				test)
-					install_cqb
+					install_cqbtest
 					;;
 				tcetest)
-					install_tce
+					install_tcetest
 					;;
 				truecombat)
-					install_tc
+					install_truecombat
+					;;
+				q3tc045)
+					install_q3tc045
 					;;
 			esac
 		done
