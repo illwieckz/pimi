@@ -714,12 +714,7 @@ parse_args () {
 
 	if [ "x${mod_list}" = "x" ]
 	then
-		if [ "x${will_purge}" = "xtrue" ]
-		then
-			install_nothing="true"
-		else
-			mod_list="default"
-		fi
+		mod_list="default"
 	fi
 
 	if [ "x${install_nothing}" = "xtrue" ]
