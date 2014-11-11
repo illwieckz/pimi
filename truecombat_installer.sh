@@ -688,12 +688,12 @@ print_help () {
 	cat <<-EOF
 	Usage: ${0} [OPTION]... [MOD NAME]...
 	
-	${0} is a tool to install TrueCombat mods for ${wolfet_name}
-	  and ${quake3_name} games.
+	${0} is a tool to install TrueCombat mods for
+	${wolfet_name} and ${quake3_name} games.
 	
 	Without MOD NAME:
-	- installs ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}
-	  in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
+	- installs ${cqbtest_name} ${cqbtest_version} for
+	  ${wolfet_name} in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
 
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
@@ -703,19 +703,26 @@ print_help () {
 
 	OPTIONS
 	${tab}-dl=PATH,  --download-directory=PATH    download files in PATH directory
-	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods in PATH directory
-	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods in PATH directory
 
-	${tab}-ni, --not-interactive    do not ask before doing anything
+	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods
+	${tab}                                        in PATH directory
+	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods
+	${tab}                                        in PATH directory
+
+	${tab}-ni, --not-interactive    do not ask before doing something
 	${tab}-f,  --force-redownload   force to download again already downloaded files
 	${tab}-p,  --purge-after        purge downloaded temporary files after installation
 	${tab}-h,  --help               print this help
 
 	MOD NAMES
-	${tab}cqb, cqbtest   ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}
-	${tab}tce, tcetest   ${tcetest_name} ${tcetest_version} for ${wolfet_name}
-	${tab}truecombat     ${truecombat_name} ${truecombat_version} for ${quake3_name}
-	${tab}q3tc045        ${q3tc045_name} ${q3tc045_version} for ${quake3_name}
+	${tab}cqb, cqbtest   ${cqbtest_name} ${cqbtest_version}
+	${tab}               for ${wolfet_name}
+	${tab}tce, tcetest   ${tcetest_name} ${tcetest_version}
+	${tab}               for ${wolfet_name}
+	${tab}truecombat     ${truecombat_name} ${truecombat_version}
+	${tab}               for ${quake3_name}
+	${tab}q3tc045        ${q3tc045_name} ${q3tc045_version}
+	${tab}               for ${quake3_name}
 
 	${tab}default        an alias for “cqbtest”
 	${tab}all            an alias for “cqbtest tcetest truecombat q3tc045”
@@ -729,16 +736,15 @@ print_help () {
 	To purge already downloaded files without installing anything more:
 	$ ${0} --purge-after nothing
 
-	To install ${truecombat_name} mod using a random temporary directory,
-	  automatically delete temporary files, in non interactive mode:
+	To install ${truecombat_name} ${truecombat_version} mod using a random temporary directory, automatically
+	deleting temporary files, in non interactive mode:
 	$ ${0} -p -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
-	To install ${tcetest_name} mod inside ${wolfet_name} user directory
-	  (not recommended at all):
+	To install ${tcetest_name} ${tcetest_version} mod inside ${wolfet_name}
+	user directory (not recommended at all):
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
-	To install ${cqbtest_name}, ${tcetest_name} and ${truecombat_name} mods
-	  inside ${etlegacy_name} and ${ioquake3_name} system directories (not recommended):
+	To install all mods inside system directories (not recommended):
 	# ${0} -ioq="/usr/share/games/quake3" \\
 	    -etl="/usr/share/games/etlegacy" all
 	EOF
