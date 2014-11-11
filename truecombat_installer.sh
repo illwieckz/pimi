@@ -740,8 +740,8 @@ print_help () {
 	deleting temporary files, in non interactive mode:
 	$ ${0} -p -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
-	To install ${tcetest_name} ${tcetest_version} mod inside ${wolfet_name}
-	user directory (not recommended at all):
+	To install ${tcetest_name} ${tcetest_version} mod inside
+	${wolfet_name} user directory (not recommended at all):
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
 	To install all mods inside system directories (not recommended):

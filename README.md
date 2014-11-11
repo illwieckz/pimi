@@ -79,8 +79,8 @@ To install TrueCombat beta 1.3 mod using a random temporary directory, automatic
 deleting temporary files, in non interactive mode:
 $ ./truecombat_installer.sh -p -dl="$(mktemp -d)" truecombat
 
-To install TrueCombat:Elite beta 0.4 build 9 patch b mod inside Wolfenstein: Enemy Territory
-user directory (not recommended at all):
+To install TrueCombat:Elite beta 0.4 build 9 patch b mod
+inside Wolfenstein: Enemy Territory user directory (not recommended at all):
 $ ./truecombat_installer.sh -etl="${HOME}/.etwolf"
 
 To install all mods inside system directories (not recommended):
