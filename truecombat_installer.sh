@@ -12,7 +12,7 @@ constants () {
 	quake3_name="Quake Ⅲ Arena"
 	ioquake3_name="ioquake3"
 
-	cqb_name="TrueCombat:Close Quarter Battle"
+	cqb_name="TrueCombat:Close Quarters Battle"
 	cqb_mod_name="cqbtest"
 	cqb_version="alpha 0.223"
 
@@ -313,8 +313,8 @@ check_ioquake3_directory () {
 	check_directory "${ioquake3_directory}" "${ioquake3_name}"
 }
 
-## Close Quarter Battle Stuff
-#############################
+## Close Quarters Battle Stuff
+##############################
 
 check_cqb_directory () {
 	check_directory "${cqb_directory}" "${cqb_name}"

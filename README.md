@@ -10,7 +10,7 @@ Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engi
 
 Current mods supported:
 
-* **TrueCombat:Close Quarter Battle alpha 0.223** for Wolfenstein: Enemy Territory
+* **TrueCombat:Close Quarters Battle alpha 0.223** for Wolfenstein: Enemy Territory
 * **TrueCombat:Elite beta 0.4 build 9b** for Wolfenstein: Enemy Territory
 * **TrueCombat 1.3** for Quake Ⅲ Arena
 
@@ -29,7 +29,7 @@ Usage: ./truecombat_installer.sh [OPTION]... [MOD NAME]...
 ./truecombat_installer.sh is a tool to install TrueCombat mods for Wolfenstein: Enemy Territory and Quake Ⅲ Arena games.
 
 Without MOD NAME:
-- installs TrueCombat:Close Quarter Battle alpha 0.223 for Wolfenstein: Enemy Territory in “${HOME}/.etlegacy/cqbtest”.
+- installs TrueCombat:Close Quarters Battle alpha 0.223 for Wolfenstein: Enemy Territory in “${HOME}/.etlegacy/cqbtest”.
 
 Without OPTION:
 - installs mods in Enemy Territory: Legacy and ioquake3 user directories.
@@ -48,7 +48,7 @@ OPTIONS
 	-h,  --help               print this help
 
 MOD NAMES
-	cqb, cqbtest   TrueCombat:Close Quarter Battle alpha 0.223 for Wolfenstein: Enemy Territory
+	cqb, cqbtest   TrueCombat:Close Quarters Battle alpha 0.223 for Wolfenstein: Enemy Territory
 	tce, tcetest   TrueCombat:Elite beta 0.4 build 9b for Wolfenstein: Enemy Territory
 	truecombat     TrueCombat 1.3 for Quake Ⅲ Arena
 
@@ -58,7 +58,7 @@ MOD NAMES
 	nothing        nothing
 
 EXAMPLES
-To install TrueCombat:Close Quarter Battle:
+To install TrueCombat:Close Quarters Battle:
 $ ./truecombat_installer.sh
 
 To purge already downloaded files without installing anything more:
@@ -71,7 +71,7 @@ $ ./truecombat_installer.sh -p -dl="$(mktemp -d)" truecombat
 To install TrueCombat:Elite mod in Wolfenstein: Enemy Territory user directory (not recommended at all):
 $ ./truecombat_installer.sh -etl="${HOME}/.etwolf"
 
-To install TrueCombat:Close Quarter Battle, TrueCombat:Elite and TrueCombat mods
+To install TrueCombat:Close Quarters Battle, TrueCombat:Elite and TrueCombat mods
   inside Enemy Territory: Legacy and ioquake3 system directories (not recommended):
 # ./truecombat_installer.sh -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
 
