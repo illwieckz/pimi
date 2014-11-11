@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Author:  Thomas DEBESSE <dev@illwieckz.net>
+# License: ISC
+
 ## Constants
 ############
 
