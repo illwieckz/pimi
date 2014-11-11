@@ -15,6 +15,7 @@ Current mods supported:
 * **TrueCombat 1.3** for Quake Ⅲ Arena
 
 This tool can help users to install these mods or to help packagers to build a package or write an installer around this downloader.
+Additionnal Mac OS X and Windows binaries and libraries are not extracted from official packages to provide a clean GNU/Linux installation.
 
 Help
 ----
