@@ -1,19 +1,12 @@
 #! /bin/sh
 
-## Defaults
-###########
-
-defaults () {
-	download_directory="/tmp/truecombat_files"
-	etlegacy_directory="${HOME}/.etlegacy"
-	ioquake3_directory="${HOME}/.q3a"
-}
-
 ## Constants
 ############
 
 constants () {
+	wolfet_name="Wolfenstein: Enemy Territory"
 	etlegacy_name="Enemy Territory: Legacy"
+	quake3_name="Quake Ⅲ Arena"
 	ioquake3_name="ioquake3"
 
 	cqb_name="TrueCombat:Close Quarter Battle"
@@ -22,11 +15,18 @@ constants () {
 
 	tce_name="TrueCombat:Elite"
 	tce_mod_name="tcetest"
-	tce_version="beta 0.4 build 9"
+	tce_version="beta 0.4 build 9b"
 
 	tc_name="TrueCombat"
 	tc_mod_name="truecombat"
 	tc_version="1.3"
+
+	wolfet_user_directory=".etwolf"
+	etlegacy_user_directory=".etlegacy"
+	ioquake3_user_directory=".q3a"
+	quake3_user_directory=".q3a"
+
+	default_download_directory="/tmp/truecombat_files"
 
 	cqb_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
 	cqb_full_zip_filename="cqb_alpha022_win_linux.zip"
@@ -85,6 +85,9 @@ constants () {
 }
 
 configure () {
+	etlegacy_directory="${HOME}/${etlegacy_user_directory}"
+	ioquake3_directory="${HOME}/${ioquake3_user_directory}"
+
 	cqb_directory="${etlegacy_directory}/${cqb_mod_name}"
 	tce_directory="${etlegacy_directory}/${tce_mod_name}"
 	tc_directory="${ioquake3_directory}/${tc_mod_name}"
@@ -101,6 +104,21 @@ configure () {
 	tc_full_11_zip_filepath="${download_directory}/${tc_full_11_zip_filename}"
 	tc_patch_12_zip_filepath="${download_directory}/${tc_patch_12_zip_filename}"
 	tc_patch_13_zip_filepath="${download_directory}/${tc_patch_13_zip_filename}"
+}
+
+downloadable_filepath_list () {
+	cat <<-EOF
+	${cqb_full_zip_filepath}
+	${cqb_patch_zip_filepath}
+	${tce_full_run_gz_filepath}
+	${tce_full_run_filepath}
+	${tce_full_tar_gz_filepath}
+	${tce_full_tar_bz2_filepath}
+	${tce_patch_zip_filepath}
+	${tc_full_11_zip_filepath}
+	${tc_patch_12_zip_filepath}
+	${tc_patch_13_zip_filepath}
+	EOF
 }
 
 cqb_full_filename_list () {
@@ -257,18 +275,24 @@ download () {
 	echo "Downloading ${3}: ${2}"
 	if [ -f "${2}" ]
 	then
-		echo "Already there"
-		true
-	else
-		if wget --quiet "${1}" -O "${2}"
+		if [ "x${force_redownload}" != "xtrue" ]
 		then
-			echo "Done"
+			echo "Already there"
 			true
+			return
 		else
-			echo "Failure"
-			false
+			echo "Already there, but redownloading"
 		fi
 	fi
+
+	if wget --quiet "${1}" -O "${2}"
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+		fi
 }
 
 check_download_directory () {
@@ -286,8 +310,8 @@ check_ioquake3_directory () {
 	check_directory "${ioquake3_directory}" "${ioquake3_name}"
 }
 
-## CQB Stuff
-############
+## Close Quarter Battle Stuff
+#############################
 
 check_cqb_directory () {
 	check_directory "${cqb_directory}" "${cqb_name}"
@@ -331,8 +355,8 @@ extract_cqb_patch_files () {
 	fi
 }
 
-## TCE Stuff
-############
+## TrueCombat:Elite Stuff
+#########################
 
 check_tce_directory () {
 	check_directory "${tce_directory}" "${tce_name}"
@@ -482,16 +506,54 @@ extract_tc_patch_13_files () {
 }
 
 download_tc_patch_12_zip () {
-	if download "${tc_patch_12_zip_url}" "${tc_patch_12_zip_filepath}" "${tc_name} patch file"
+	if download "${tc_patch_12_zip_url}" "${tc_patch_12_zip_filepath}" "${tc_name} patch file (${tc_patch_12_zip_hsize})"
 	then
 		verify "${tc_patch_12_zip_filepath}" "${tc_patch_12_zip_sum}" "${tc_name} patch file"
 	fi
 }
 
 download_tc_patch_13_zip () {
-	if download "${tc_patch_13_zip_url}" "${tc_patch_13_zip_filepath}" "${tc_name} patch file"
+	if download "${tc_patch_13_zip_url}" "${tc_patch_13_zip_filepath}" "${tc_name} patch file (${tc_patch_13_zip_hsize})"
 	then
 		verify "${tc_patch_13_zip_filepath}" "${tc_patch_13_zip_sum}" "${tc_name} patch file"
+	fi
+}
+
+## Purge
+########
+
+purge () {
+	if [ "x${will_purge}" = "xtrue" ]
+	then
+		for downloadable_filepath in $(downloadable_filepath_list)
+		do
+			if [ -f "${downloadable_filepath}" ]
+			then
+				echo "Deleting ${downloadable_filepath} file"
+				if rm "${downloadable_filepath}"
+				then
+					echo "Success"
+					true
+				else
+					echo "Failure"
+					false
+					return
+				fi
+			fi
+		done
+		if [ -d "${downloadable_directory}" ]
+		then
+			echo "Deleting ${download_directory} directory"
+			if rmdir "${downloadable_directory}"
+			then
+				echo "Success"
+				true
+			else
+				echo "Failure"
+				false
+				return
+			fi
+		fi
 	fi
 }
 
@@ -536,41 +598,93 @@ install_tc () {
 ## Arguments
 ############
 
-_help () {
+print_help () {
 	tab="$(printf '\t')"
 	cat <<-EOF
 	Usage: ${0} [OPTION]... [MOD NAME]...
+	
+	${0} is a tool to install TrueCombat mods for ${wolfet_name} and ${quake3_name} games.
+	
+	Without MOD NAME:
+	- installs ${cqb_name} ${cqb_version} for ${wolfet_name} in “\${HOME}/${etlegacy_user_directory}/${cqb_mod_name}”.
+
+	Without OPTION:
+	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
+	- download temporary files to “${default_download_directory}” directory.
+	- does not purge downloaded temporary files.
+	- asks user before doing anything.
 
 	OPTIONS
 	${tab}-dl=PATH,  --download-directory=PATH    download files in this directory
-	${tab}-etl=PATH, --etlegacy-directory=PATH    install “Wolfenstein: Enemy Territory” mods in this directory
-	${tab}-ioq=PATH, --ioquake3-directory=PATH    install “ioquake3 mods” in this directory
+	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods in this directory
+	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods in this directory
+
+	${tab}-ni, --not-interactive    do not ask before doing anything
+	${tab}-f,  --force-redownload   force to download again already downloaded files
+	${tab}-p,  --purge-after        purge downloaded temporary files after installation
+	${tab}-h,  --help               print this help
 
 	MOD NAMES
-	${tab}cqb, cqbtest      TrueCombat:Close Quarter Battle for Wolfenstein: Enemy Territory
-	${tab}tce, tcetest      TrueCombat:Elite for Wolfenstein: Enemy Territory
-	${tab}truecombat        TrueCombat for Quake Ⅲ Arena
-	${tab}default           an alias for “cqbtest”
-	${tab}all               an alias for “cqbtest tcetest truecombat”
+	${tab}cqb, cqbtest   ${cqb_name} ${cqb_version} for ${wolfet_name}
+	${tab}tce, tcetest   ${tce_name} ${tce_version} for ${wolfet_name}
+	${tab}truecombat     ${tc_name} ${tc_version} for ${quake3_name}
 
-	Without options, ${0} installs “TrueCombat:Close Quarter Battle for Wolfenstein: Enemy Territory” in “~/.etlegacy/cqbtest”
+	${tab}default        an alias for “cqbtest”
+	${tab}all            an alias for “cqbtest tcetest truecombat”
 
+	${tab}nothing        nothing
+
+	EXAMPLES
+	To install ${cqb_name}:
+	$ ${0}
+
+	To purge already downloaded files without installing anything more:
+	$ ${0} --purge-after nothing
+
+	To install ${truecombat_name} mod using a random temporary directory,
+	  automatically delete temporary files, in non interactive mode:
+	$ ${0} -p -dl="\$(mktemp -d)" ${tc_mod_name}
+
+	To install ${tce_name} mod in ${wolfet_name} user directory (not recommended at all):
+	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
+
+	To install ${cqb_name}, ${tce_name} and ${tc_name} mods
+	  inside ${etlegacy_name} and ${ioquake3_name} system directories (not recommended):
+	# ${0} -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
 	EOF
 }
 
 parse_args () {
+	will_purge="false"
+	force_redownload="false"
+	install_nothing="false"
+	is_interactive="true"
+	download_directory="${default_download_directory}"
 	mod_list=""
+
 	for arg in ${@}
 	do
 		case "${arg}" in
-			cqbtest|cqb|tcetest|tce|truecombat|tc)
-				mod_list="${mod_list} ${arg}"
-				;;
-			default)
+			default|cqbtest|cqb)
 				mod_list="${mod_list} cqbtest"
 				;;
+			tcetest|tce)
+				mod_list="${mod_list} tcetest"
+				;;
+			truecombat|tc)
+				mod_list="${mod_list} truecombat"
+				;;
 			all)
-				mod_list=" cqbtest tcetest truecombat"
+				mod_list="cqbtest tcetest truecombat"
+				;;
+			nothing)
+				install_nothing="true"
+				;;
+			--purge-after|-p)
+				will_purge="true"
+				;;
+			--force-redownload|-f)
+				force_redownload="true";
 				;;
 			--download-directory=*|-dl=*)
 				download_directory="$(echo "${arg}" | cut -d'=' -f2)"
@@ -581,8 +695,11 @@ parse_args () {
 			--ioquake3-directory=*|-ioq=*)
 				ioquake3_directory="$(echo "${arg}" | cut -d'=' -f2)"
 				;;
+			--not-interactive|-ni)
+				is_interactive="true"
+				;;
 			--help|-h)
-				_help
+				print_help
 				exit 1
 				;;
 			*)
@@ -591,61 +708,104 @@ parse_args () {
 				;;
 		esac
 	done
+
 	if [ "x${mod_list}" = "x" ]
 	then
-		mod_list="default"
+		if [ "x${will_purge}" = "xtrue" ]
+		then
+			install_nothing="true"
+		else
+			mod_list="default"
+		fi
 	fi
+
+	if [ "x${install_nothing}" = "xtrue" ]
+	then
+		mod_list="nothing"
+	fi
+
 	mod_list="$(echo "${mod_list}" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')"
 }
 
-print_config () {
-	echo "** download directory: ${download_directory}"
-	echo "** etlegacy directory: ${etlegacy_directory}"
-	echo "** ioquake3 directory: ${ioquake3_directory}"
-	echo "** mod list: ${mod_list}"
+print_configuration () {
+	echo "Configuration:"
+	echo "- download directory: ${download_directory}"
+	echo "- etlegacy directory: ${etlegacy_directory}"
+	echo "- ioquake3 directory: ${ioquake3_directory}"
+
+	if [ "x${install_nothing}" = "xtrue" ]
+	then
+		echo "Will install ${mod_list}"
+	else
+		echo "Will install:"
+		for mod_name in ${mod_list}
+		do
+			case "${mod_name}" in
+				cqbtest)
+					echo "- ${cqb_name} ${cqb_version} for ${wolfet_name}"
+					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					;;
+				tcetest)
+					echo "- ${tce_name} ${tce_version} for ${wolfet_name}"
+					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					;;
+				truecombat)
+					echo "- ${tc_name} ${tc_version} for ${quake3_name}"
+					echo "  ${mod_name} in ${etlegacy_directory}/${mod_name}"
+					;;
+			esac
+		done
+	fi
+
+	if [ "x${will_purge}" = "xtrue" ]
+	then
+		echo "Will purge downloaded files"
+	fi
+}
+
+ask_continue () {
+	if [ "x${is_interactive}" = "xtrue" ]
+	then
+		printf "Continue (Y/n)?"
+		read answer
+		if ! [ "x${answer}" = "x" -o "x${answer}" = "xY" -o  "x${answer}" = "xy" -o "x${answer}" = "xyes" ]
+		then
+			echo "Nothing was done"
+			exit
+		fi
+	fi
 }
 
 ## Main
 #######
 
 main () {
-	defaults
 	constants
 	parse_args ${@}
 	configure
-	print_config
+	print_configuration
 
-	for mod_name in ${mod_list}
-	do
-		case "${mod_name}" in
-			cqbtest|cqb)
-				echo "Will install ${cqb_name} ${cqb_version}."
-				install_cqb
-				;;
-			tcetest|tce)
-				echo "Will install ${tce_name} ${tce_version}."
-				install_tce
-				;;
-			truecombat|tc)
-				echo "Will install ${tc_name} ${tc_version}."
-				install_tc
-				;;
-			all)
-				echo "Will install ${cqb_name} ${cqb_version}, ${tce_name} ${tce_version} and ${tc_name} ${tc_version}."
-				install_cqb
-				install_tce
-				install_tc
-				;;
-			default)
-				echo "Will install ${cqb_name} ${cqb_version} by default."
-				install_cqb
-				;;
-			*)
-				echo "Bad mod name: ${mod_name}"
-				false
-				;;
-		esac
-	done
+	ask_continue
+
+	if [ "x${install_nothing}" = "xfalse" ]
+	then
+		for mod_name in ${mod_list}
+		do
+			case "${mod_name}" in
+				test)
+					install_cqb
+					;;
+				tcetest)
+					install_tce
+					;;
+				truecombat)
+					install_tc
+					;;
+			esac
+		done
+	fi
+
+	purge
 }
 
 main ${@}
