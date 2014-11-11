@@ -613,7 +613,7 @@ print_help () {
 
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
-	- download temporary files to “${default_download_directory}” directory.
+	- downloads temporary files to “${default_download_directory}” directory.
 	- does not purge downloaded temporary files.
 	- asks user before doing anything.
 

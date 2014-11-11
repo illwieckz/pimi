@@ -32,7 +32,7 @@ Without MOD NAME:
 
 Without OPTION:
 - installs mods in Enemy Territory: Legacy and ioquake3 user directories.
-- download temporary files to “/tmp/truecombat_files” directory.
+- downloads temporary files to “/tmp/truecombat_files” directory.
 - does not purge downloaded temporary files.
 - asks user before doing anything.
 
