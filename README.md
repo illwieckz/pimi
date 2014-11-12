@@ -12,7 +12,7 @@ Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engi
 
 Current Wolfenstein: Enemy Territory mods supported:
 
-* **Wolfenstein: Enemy Territory**
+* **Wolfenstein: Enemy Territory 2.60 patch b**
 * **TrueCombat:Close Quarters Battle alpha 0.223**
 * **TrueCombat:Elite beta 0.4 build 9b**
 
