@@ -16,6 +16,11 @@ constants () {
 	quake3_name="Quake Ⅲ Arena"
 	ioquake3_name="ioquake3"
 
+	etmain_name="Wolfenstein: Enemy Territory"
+	etmain_mod_name="etmain"
+	etmain_version="2.60 patch b"
+	etmain_date="2006-05-08"
+
 	cqbtest_name="TrueCombat:Close Quarters Battle"
 	cqbtest_mod_name="cqbtest"
 	cqbtest_version="alpha 0.22 patch 3"
@@ -41,7 +46,22 @@ constants () {
 	ioquake3_user_directory=".q3a"
 	quake3_user_directory=".q3a"
 
-	default_temporary_directory="/tmp/truecombat_files"
+	default_temporary_directory="/tmp/pimi_files"
+
+	etmain_full_zip_url="http://filebase.trackbase.net/et/full/et260b.x86_full.zip"
+	etmain_full_zip_filename="et260b.x86_full.zip"
+	etmain_full_zip_sum="7a9639c7a67c6c058ae1c85ca1e04e74526194a8a676eaccffa1984869251cc058f0cb79b96604ec087492003d14f7f3e96c8ebe7e527959ae47d4d25645d3e1"
+	etmain_full_zip_size="275647724"
+	etmain_full_zip_hsize="263Mb"
+
+	etmain_full_run_filename="et260b.x86_keygen_V03.run"
+	etmain_full_run_sum="e60c48ac64669c7b2f12683d65d041a676375f60f4091819b8db01105157fc31fdb0249072a2744dcce8aad7c239cc68180d86a71b8864be65fd451e9cda270b"
+	etmain_full_run_size="275644494"
+
+	etmain_full_tar_gz_filename="et260b.x86_keygen_V03.tar.gz"
+	etmain_full_tar_gz_sum="7342079ae1c0a94a06011e487fb3f22d95dca5709e47e399ae671e7e79d16989cc1267b643ed49a5a487e8970284dd5bdf57787680bcca4c4aa076d2aa4fe459"
+	etmain_full_tar_gz_size="275635039"
+	etmain_full_tar_gz_offset="9455"
 
 	cqbtest_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
 	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
@@ -105,6 +125,10 @@ constants () {
 	q3tc045_full_zip_hsize="90Mb"
 }
 
+get_etmain_description () {
+	echo "${etmain_name} ${etmain_version}"
+}
+
 get_cqbtest_description () {
 	echo "${cqbtest_name} ${cqbtest_version}"
 }
@@ -119,6 +143,10 @@ get_truecombat_description () {
 
 get_q3tc045_description () {
 	echo "${q3tc045_name} ${q3tc045_version}"
+}
+
+get_etmain_full_description () {
+	echo "$(get_etmain_description) for ${etlegacy_name}"
 }
 
 get_cqbtest_full_description () {
@@ -137,6 +165,10 @@ get_q3tc045_full_description () {
 	echo "$(get_q3tc045_description) for ${ioquake3_name}"
 }
 
+get_etmain_directory () {
+	echo "${etlegacy_directory}/${etmain_mod_name}"
+}
+
 get_cqbtest_directory () {
 	echo "${etlegacy_directory}/${cqbtest_mod_name}"
 }
@@ -151,6 +183,17 @@ get_truecombat_directory() {
 
 get_q3tc045_directory () {
 	echo "${ioquake3_directory}/${q3tc045_mod_name}"
+}
+
+get_etmain_downloadable_filename_list () {
+	cat <<-EOF
+	${etmain_full_zip_filename}
+	${etmain_full_run_filename}
+	EOF
+}
+
+get_etmain_temporary_filename_list () {
+	get_etmain_downloadable_filename_list
 }
 
 get_cqbtest_downloadable_filename_list () {
@@ -207,6 +250,37 @@ get_temporary_filename_list () {
 	get_tcetest_temporary_filename_list
 	get_truecombat_temporary_filename_list
 	get_q3tc045_temporary_filename_list
+}
+
+get_etmain_full_filename_list () {
+	cat <<-EOF
+	./etmain/description.txt
+	./etmain/pak0.pk3
+	./etmain/lmscycle.cfg
+	./etmain/server.cfg
+	./etmain/video/etintro.roq
+	./etmain/stopwatchcycle.cfg
+	./etmain/objectivecycle.cfg
+	./etmain/pak1.pk3
+	./etmain/mp_bin.pk3
+	./etmain/punkbuster.cfg
+	./etmain/campaigncycle.cfg
+	./etmain/pak2.pk3
+	./etmain/hunkusage.dat
+	./etmain/ui.mp.i386.so
+	./etmain/cgame.mp.i386.so
+	./etmain/qagame.mp.i386.so
+EOF
+}
+
+# Files in subdirectory “Help/” not described here but extracted
+get_etmain_full_docs_filename_list () {
+	cat <<-EOF
+	./Docs/EULA_Wolfenstein_Enemy_Territory.txt
+	./Docs/MSR.rtf
+	./Docs/License.rtf
+	./Docs/Help/
+	EOF
 }
 
 get_cqbtest_full_filename_list () {
@@ -330,7 +404,7 @@ get_q3tc045_full_zip_filename_list () {
 }
 
 
-## Common Stuff
+## Common stuff
 ###############
 
 get_temporary_filepath () {
@@ -429,7 +503,88 @@ check_ioquake3_directory () {
 	check_directory "${ioquake3_directory}" "${ioquake3_name}"
 }
 
-## Close Quarters Battle Stuff
+
+## Wolfenstein: Enemy Territory stuff
+#####################################
+
+check_etmain_directory () {
+	check_directory "$(get_etmain_directory)" "${etmain_name}"
+}
+
+download_etmain_full_zip () {
+	if download "${etmain_full_zip_url}" "$(get_temporary_filepath "${etmain_full_zip_filename}")" "${etmain_name} installer archive (${etmain_full_zip_hsize})"
+	then
+		verify "$(get_temporary_filepath "${etmain_full_zip_filename}")" "${etmain_full_zip_sum}" "${etmain_name} installer archive"
+	fi
+}
+
+extract_etmain_full_run () {
+	echo "Extracting $(get_temporary_filepath "${etmain_name} installer: ${etmain_full_run_filename}")"
+	if [ -f "$(get_temporary_filepath "${etmain_full_run_filename}")" ]
+	then
+		echo "Already there"
+		true
+	else
+		if 7z x -y -o"${temporary_directory}" "$(get_temporary_filepath "${etmain_full_zip_filename}")" "${etmain_full_run_filename}" >/dev/null
+		then
+			echo "Done"
+			verify "$(get_temporary_filepath "${etmain_full_run_filename}")"  "${etmain_full_run_sum}" "${etmain_name} installer"
+		else
+			echo "Failure"
+			false
+		fi
+	fi
+
+}
+
+dump_etmain_full_tar_gz () {
+	echo "Dumping $(get_temporary_filepath "${etmain_name} setup archive: ${etmain_full_tar_gz_filename}")"
+	if [ -f "$(get_temporary_filepath "${etmain_full_tar_gz_filename}")" ]
+	then
+		echo "Already there"
+		true
+	else
+		if dd if="$(get_temporary_filepath "${etmain_full_run_filename}")" \
+		      of="$(get_temporary_filepath "${etmain_full_tar_gz_filename}")" \
+			  ibs="${etmain_full_tar_gz_offset}" skip=1 obs=1024 status=none
+		then
+			echo "Done"
+			verify "$(get_temporary_filepath "${etmain_full_tar_gz_filename}")" "${etmain_full_tar_gz_sum}" "${etmain_name} setup archive"
+		else
+			echo "Failure"
+			false
+		fi
+	fi
+}
+
+extract_etmain_full_files () {
+	echo "Extracting ${etmain_name} files"
+	if tar -C "$(get_etmain_directory)/." --strip-components=2 -xzf \
+	   "$(get_temporary_filepath "${etmain_full_tar_gz_filename}")" $(get_etmain_full_filename_list)
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
+extract_etmain_full_docs () {
+	echo "Extracting ${etmain_name} docs"
+	if tar -C "$(get_etmain_directory)/." --strip-components=1 -xzf \
+	   "$(get_temporary_filepath "${etmain_full_tar_gz_filename}")" $(get_etmain_full_docs_filename_list)
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
+
+## Close Quarters Battle stuff
 ##############################
 
 check_cqbtest_directory () {
@@ -475,7 +630,7 @@ extract_cqbtest_patch_files () {
 }
 
 
-## TrueCombat:Elite Stuff
+## TrueCombat:Elite stuff
 #########################
 
 check_tcetest_directory () {
@@ -581,7 +736,7 @@ extract_tcetest_patch_files () {
 }
 
 
-## TrueCombat 1.3 Stuff
+## TrueCombat 1.3 stuff
 #######################
 
 check_truecombat_directory () {
@@ -646,7 +801,7 @@ extract_truecombat_patch_13_files () {
 }
 
 
-## TrueCombat 0.45 Stuff
+## TrueCombat 0.45 stuff
 ########################
 
 check_q3tc045_directory () {
@@ -715,6 +870,21 @@ purge () {
 ## Installation
 ###############
 
+download_etmain () {
+	check_temporary_directory \
+	&& download_etmain_full_zip
+}
+
+download_and_install_etmain () {
+	check_etlegacy_directory \
+	&& check_etmain_directory \
+	&& download_etmain \
+	&& extract_etmain_full_run \
+	&& dump_etmain_full_tar_gz \
+	&& extract_etmain_full_files \
+	&& extract_etmain_full_docs
+}
+
 download_cqbtest () {
 	check_temporary_directory \
 	&& download_cqbtest_full_zip \
@@ -782,8 +952,7 @@ print_help () {
 	cat <<-EOF
 	Usage: ${0} [OPTION]... MOD NAME [MOD NAME]...
 	
-	${0} is a tool to install popular mods for
-	${etlegacy_name} and ${ioquake3_name} engines.
+	${0} is a tool to install popular mods for ${etlegacy_name} and ${ioquake3_name} engines.
 	
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
@@ -809,6 +978,8 @@ print_help () {
 	${tab}    print this help
 
 	MOD NAMES
+	${tab}etmain
+	${tab}    $(get_etmain_full_description)
 	${tab}cqb, cqbtest
 	${tab}    $(get_cqbtest_full_description)
 	${tab}tce, tcetest
@@ -819,14 +990,14 @@ print_help () {
 	${tab}    $(get_q3tc045_full_description)
 
 	${tab}all
-	${tab}    an alias for “cqbtest tcetest truecombat q3tc045”
+	${tab}    an alias for “etmain cqbtest tcetest truecombat q3tc045”
 
 	${tab}nothing
 	${tab}    nothing
 
 	EXAMPLES
-	To install ${cqbtest_name} ${cqb_version}:
-	$ ${0} cqbtest
+	To install $(get_etmain_full_description):
+	$ ${0} etmain
 
 	To install both $(get_cqbtest_description)
 	and $(get_tcetest_description):
@@ -862,6 +1033,9 @@ parse_args () {
 	for arg in ${@}
 	do
 		case "${arg}" in
+			etmain|et)
+				mod_list="${mod_list} etmain"
+				;;
 			cqbtest|cqb)
 				mod_list="${mod_list} cqbtest"
 				;;
@@ -875,7 +1049,7 @@ parse_args () {
 				mod_list="${mod_list} q3tc045"
 				;;
 			all)
-				mod_list="cqbtest tcetest truecombat q3tc045"
+				mod_list="etmain cqbtest tcetest truecombat q3tc045"
 				;;
 			nothing)
 				install_nothing="true"
@@ -906,7 +1080,7 @@ parse_args () {
 				exit 1
 				;;
 			*)
-				echo "bad arg: ${arg}"
+				echo "Bad argument: ${arg}"
 				exit 0
 				;;
 		esac
@@ -943,7 +1117,7 @@ print_configuration () {
 			echo "  Will download $("get_${mod_name}_downloadable_filename_list" | tr '\n' ' ')in ${temporary_directory}"
 			if [ "x${download_only}" = "xfalse" ]
 			then
-				echo "  Will install ${mod_name} in $("get_${mod_name}_directory")"
+				echo "  Will install ${mod_name} as $("get_${mod_name}_directory")"
 			fi
 		done
 	fi

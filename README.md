@@ -12,6 +12,7 @@ Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engi
 
 Current Wolfenstein: Enemy Territory mods supported:
 
+* **Wolfenstein: Enemy Territory**
 * **TrueCombat:Close Quarters Battle alpha 0.223**
 * **TrueCombat:Elite beta 0.4 build 9b**
 
@@ -20,11 +21,7 @@ Current Quake Ⅲ Arena mods supported:
 * **TrueCombat beta 1.3**
 * **TrueCombat beta 0.45 build 12**
 
-Special ET:Legacy mod to be supported:
-
-* **Wolfenstein: Enemy Territory**
-
-This tool can help users to install these mods or to help packagers to build a package or write an installer around this downloader.
+This tool can help users to install these mods.
 
 Additionnal Mac OS X and Windows binaries and libraries are not extracted from official packages to provide a clean GNU/Linux installation.
 
@@ -36,12 +33,11 @@ From `./pimi.sh --help`:
 ```
 Usage: ./pimi.sh [OPTION]... MOD NAME [MOD NAME]...
 
-./pimi.sh is a tool to install popular mods for
-Enemy Territory: Legacy and ioquake3 engines.
+./pimi.sh is a tool to install popular mods for Enemy Territory: Legacy and ioquake3 engines.
 
 Without OPTION:
 - installs mods in Enemy Territory: Legacy and ioquake3 user directories.
-- downloads temporary files to “/tmp/truecombat_files” directory.
+- downloads temporary files to “/tmp/pimi_files” directory.
 - does not purge downloaded temporary files.
 - asks user before doing anything.
 
@@ -63,6 +59,8 @@ OPTIONS
 	    print this help
 
 MOD NAMES
+	etmain
+	    Wolfenstein: Enemy Territory 2.60 patch b for Enemy Territory: Legacy
 	cqb, cqbtest
 	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for Enemy Territory: Legacy
 	tce, tcetest
@@ -73,14 +71,14 @@ MOD NAMES
 	    TrueCombat beta 0.45 build 12 for ioquake3
 
 	all
-	    an alias for “cqbtest tcetest truecombat q3tc045”
+	    an alias for “etmain cqbtest tcetest truecombat q3tc045”
 
 	nothing
 	    nothing
 
 EXAMPLES
-To install TrueCombat:Close Quarters Battle :
-$ ./pimi.sh cqbtest
+To install Wolfenstein: Enemy Territory 2.60 patch b for Enemy Territory: Legacy:
+$ ./pimi.sh etmain
 
 To install both TrueCombat:Close Quarters Battle alpha 0.22 patch 3
 and TrueCombat:Elite beta 0.4 build 9 patch b:
@@ -99,6 +97,7 @@ $ ./pimi.sh -etl="${HOME}/.etwolf"
 
 To install all mods inside system directories:
 # ./pimi.sh -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
+
 ```
 
 Warning
