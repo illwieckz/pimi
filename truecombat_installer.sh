@@ -41,16 +41,16 @@ constants () {
 	ioquake3_user_directory=".q3a"
 	quake3_user_directory=".q3a"
 
-	default_download_directory="/tmp/truecombat_files"
+	default_temporary_directory="/tmp/truecombat_files"
 
 	cqbtest_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
-	cqbtest_full_zip_filename="cqbtest_alpha022_win_linux.zip"
+	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
 	cqbtest_full_zip_sum="361b3e0ef8e35a5cb6550a9a8df06f85604d21f898b7c504d24119880add7b46b436f884f550930491f2a6ed071eae8b88678f61dc06e4fdb4efdd8959799aef"
 	cqbtest_full_zip_size="309240933"
 	cqbtest_full_zip_hsize="295M"
 
 	cqbtest_patch_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1287&Itemid=17"
-	cqbtest_patch_zip_filename="cqbtest_alpha0223_win_linux_patch.zip"
+	cqbtest_patch_zip_filename="cqb_alpha0223_win_linux_patch.zip"
 	cqbtest_patch_zip_sum="5fa0c927c34fbffe19a2f7b05cdd361305c7d8b1b00076281e19087716c26e938d4d1e27bea25ba9d74f075ca6ea1766269a4b71f6f7db4764b43d4619804c91"
 	cqbtest_patch_zip_size="10680693"
 	cqbtest_patch_zip_hsize="11M"
@@ -70,7 +70,7 @@ constants () {
 	tcetest_full_tar_gz_size="475295240"
 	tcetest_full_tar_gz_offset="8831"
 
-	tcetest_full_tar_bz2_filename="tcetest_0.49.tar.bz2"
+	tcetest_full_tar_bz2_filename="tce_0.49.tar.bz2"
 	tcetest_full_tar_bz2_sum="ff5cf836b5cedda75434678feac4d35ee8bae3ad6330e07d447f3d5c77e9c6c26ae073cf340fc277645b6ed1fc61326c02ffdbbcd2a30bd630acb7b0b46364e2"
 	tcetest_full_tar_bz2_size="471775660"
 
@@ -105,44 +105,111 @@ constants () {
 	q3tc045_full_zip_hsize="90M"
 }
 
-configure () {
-	cqbtest_directory="${etlegacy_directory}/${cqbtest_mod_name}"
-	tcetest_directory="${etlegacy_directory}/${tcetest_mod_name}"
-	truecombat_directory="${ioquake3_directory}/${truecombat_mod_name}"
-	q3tc045_directory="${ioquake3_directory}/${q3tc045_mod_name}"
-
-	cqbtest_full_zip_filepath="${download_directory}/${cqbtest_full_zip_filename}"
-	cqbtest_patch_zip_filepath="${download_directory}/${cqbtest_patch_zip_filename}"
-
-	tcetest_full_run_gz_filepath="${download_directory}/${tcetest_full_run_gz_filename}"
-	tcetest_full_run_filepath="${download_directory}/${tcetest_full_run_filename}"
-	tcetest_full_tar_gz_filepath="${download_directory}/${tcetest_full_tar_gz_filename}"
-	tcetest_full_tar_bz2_filepath="${download_directory}/${tcetest_full_tar_bz2_filename}"
-	tcetest_patch_zip_filepath="${download_directory}/${tcetest_patch_zip_filename}"
-
-	truecombat_full_11_zip_filepath="${download_directory}/${truecombat_full_11_zip_filename}"
-	truecombat_patch_12_zip_filepath="${download_directory}/${truecombat_patch_12_zip_filename}"
-	truecombat_patch_13_zip_filepath="${download_directory}/${truecombat_patch_13_zip_filename}"
-
-	q3tc045_full_zip_filepath="${download_directory}/${q3tc045_full_zip_filename}"
+get_cqbtest_description () {
+	echo "${cqbtest_name} ${cqbtest_version}"
 }
 
-downloadable_filepath_list () {
+get_tcetest_description () {
+	echo "${tcetest_name} ${tcetest_version}"
+}
+
+get_truecombat_description () {
+	echo "${truecombat_name} ${truecombat_version}"
+}
+
+get_q3tc045_description () {
+	echo "${q3tc045_name} ${q3tc045_version}"
+}
+
+get_cqbtest_full_description () {
+	echo "$(get_cqbtest_description) for ${wolfet_name}"
+}
+
+get_tcetest_full_description () {
+	echo "$(get_tcetest_description) for ${wolfet_name}"
+}
+
+get_truecombat_full_description () {
+	echo "$(get_truecombat_description) for ${quake3_name}"
+}
+
+get_q3tc045_full_description () {
+	echo "$(get_q3tc045_description) for ${quake3_name}"
+}
+
+get_cqbtest_directory () {
+	echo "${etlegacy_directory}/${cqbtest_mod_name}"
+}
+
+get_tcetest_directory () {
+	echo "${etlegacy_directory}/${tcetest_mod_name}"
+}
+
+get_truecombat_directory() {
+	echo "${ioquake3_directory}/${truecombat_mod_name}"
+}
+
+get_q3tc045_directory () {
+	echo "${ioquake3_directory}/${q3tc045_mod_name}"
+}
+
+get_cqbtest_downloadable_filename_list () {
 	cat <<-EOF
-	${cqbtest_full_zip_filepath}
-	${cqbtest_patch_zip_filepath}
-	${tcetest_full_run_gz_filepath}
-	${tcetest_full_run_filepath}
-	${tcetest_full_tar_gz_filepath}
-	${tcetest_full_tar_bz2_filepath}
-	${tcetest_patch_zip_filepath}
-	${truecombat_full_11_zip_filepath}
-	${truecombat_patch_12_zip_filepath}
-	${truecombat_patch_13_zip_filepath}
+	${cqbtest_full_zip_filename}
+	${cqbtest_patch_zip_filename}
 	EOF
 }
 
-cqbtest_full_filename_list () {
+get_cqbtest_temporary_filename_list () {
+	get_cqbtest_downloadable_filename_list
+}
+
+get_tcetest_downloadable_filename_list () {
+	cat <<-EOF
+	${tcetest_full_run_gz_filename}
+	${tcetest_patch_zip_filename}
+	EOF
+}
+
+get_tcetest_temporary_filename_list () {
+	get_tcetest_downloadable_filename_list
+	cat <<-EOF
+	${tcetest_full_run_filename}
+	${tcetest_full_tar_gz_filename}
+	${tcetest_full_tar_bz2_filename}
+	EOF
+}
+
+get_truecombat_downloadable_filename_list () {
+	cat <<-EOF
+	${truecombat_full_11_zip_filename}
+	${truecombat_patch_12_zip_filename}
+	${truecombat_patch_13_zip_filename}
+	EOF
+}
+
+get_truecombat_temporary_filename_list () {
+	get_truecombat_downloadable_filename_list
+}
+
+get_q3tc045_downloadable_filename_list () {
+	cat <<-EOF
+	${q3tc045_full_zip_filename}
+	EOF
+}
+
+get_q3tc045_temporary_filename_list () {
+	get_q3tc045_downloadable_filename_list
+}
+
+get_temporary_filename_list () {
+	get_cqbtest_temporary_filename_list
+	get_tcetest_temporary_filename_list
+	get_truecombat_temporary_filename_list
+	get_q3tc045_temporary_filename_list
+}
+
+get_cqbtest_full_filename_list () {
 	cat <<-EOF
 	cqbtest/autoexec.cfg
 	cqbtest/EULA_TrueCombat_CQB.txt
@@ -155,7 +222,7 @@ cqbtest_full_filename_list () {
 	EOF
 }
 
-cqbtest_patch_filename_list () {
+get_cqbtest_patch_filename_list () {
 	cat <<-EOF
 	cqbtest/cgame.mp.i386.so
 	cqbtest/changelog.txt
@@ -167,7 +234,7 @@ cqbtest_patch_filename_list () {
 	EOF
 }
 
-tcetest_full_filename_list () {
+get_tcetest_full_filename_list () {
 	cat <<-EOF
 	tcetest/autoexec.cfg
 	tcetest/cgame.mp.i386.so
@@ -181,7 +248,7 @@ tcetest_full_filename_list () {
 	EOF
 }
 
-tcetest_patch_filename_list () {
+get_tcetest_patch_filename_list () {
 	cat <<-EOF
 	mp_bin.pk3
 	official.dat
@@ -193,7 +260,7 @@ tcetest_patch_filename_list () {
 	EOF
 }
 
-truecombat_full_11_zip_filename_list () {
+get_truecombat_full_11_zip_filename_list () {
 	cat <<-EOF
 	truecombat/1life.cfg
 	truecombat/1lifecycle.cfg
@@ -218,7 +285,7 @@ truecombat_full_11_zip_filename_list () {
 	EOF
 }
 
-truecombat_patch_12_zip_filename_list () {
+get_truecombat_patch_12_zip_filename_list () {
 	cat <<-EOF
 	help/truecombat_indochine*mapinfo.txt
 	pak3.pk3
@@ -226,7 +293,7 @@ truecombat_patch_12_zip_filename_list () {
 	EOF
 }
 
-truecombat_patch_13_zip_filename_list () {
+get_truecombat_patch_13_zip_filename_list () {
 	cat <<-EOF
 	maps.cfg
 	question.ico
@@ -237,7 +304,7 @@ truecombat_patch_13_zip_filename_list () {
 	EOF
 }
 
-q3tc045_full_zip_filename_list () {
+get_q3tc045_full_zip_filename_list () {
 	cat <<-EOF
 	q3tc045/Build8.txt
 	q3tc045/Build9.txt
@@ -265,6 +332,11 @@ q3tc045_full_zip_filename_list () {
 
 ## Common Stuff
 ###############
+
+get_temporary_filepath () {
+	# $1: filename
+	echo "${temporary_directory}/${1}"
+}
 
 create_directory () {
 	# $1: path
@@ -339,11 +411,11 @@ download () {
 	else
 		echo "Failure"
 		false
-		fi
+	fi
 }
 
-check_download_directory () {
-	check_directory "${download_directory}" "download"
+check_temporary_directory () {
+	check_directory "${temporary_directory}" "download"
 }
 
 ## Engine stuff
@@ -361,19 +433,19 @@ check_ioquake3_directory () {
 ##############################
 
 check_cqbtest_directory () {
-	check_directory "${cqbtest_directory}" "${cqbtest_name}"
+	check_directory "$(get_cqbtest_directory)" "${cqbtest_name}"
 }
 
 download_cqbtest_full_zip () {
-	if download "${cqbtest_full_zip_url}" "${cqbtest_full_zip_filepath}" "${cqbtest_name} zip archive (${cqbtest_full_zip_hsize})"
+	if download "${cqbtest_full_zip_url}" "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" "${cqbtest_name} zip archive (${cqbtest_full_zip_hsize})"
 	then
-		verify "${cqbtest_full_zip_filepath}" "${cqbtest_full_zip_sum}" "${cqbtest_name} zip archive"
+		verify "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" "${cqbtest_full_zip_sum}" "${cqbtest_name} zip archive"
 	fi
 }
 
 extract_cqbtest_full_files () {
 	echo "Extracting ${cqbtest_name} archive files"
-	if 7z x -y -o"${cqbtest_directory}/../" "${cqbtest_full_zip_filepath}" $(cqbtest_full_filename_list) >/dev/null
+	if 7z x -y -o"$(get_cqbtest_directory)/../" "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" $(get_cqbtest_full_filename_list) >/dev/null
 	then
 		echo "Done"
 		true
@@ -384,15 +456,15 @@ extract_cqbtest_full_files () {
 }
 
 download_cqbtest_patch_zip () {
-	if download "${cqbtest_patch_zip_url}" "${cqbtest_patch_zip_filepath}" "${cqbtest_name} zip archive (${cqbtest_patch_zip_hsize})"
+	if download "${cqbtest_patch_zip_url}" "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" "${cqbtest_name} zip archive (${cqbtest_patch_zip_hsize})"
 	then
-		verify "${cqbtest_patch_zip_filepath}" "${cqbtest_patch_zip_sum}" "${cqbtest_name} zip archive"
+		verify "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" "${cqbtest_patch_zip_sum}" "${cqbtest_name} zip archive"
 	fi
 }
 
 extract_cqbtest_patch_files () {
 	echo "Extracting ${cqbtest_name} archive files"
-	if 7z x -y -o"${cqbtest_directory}/../" "${cqbtest_patch_zip_filepath}" $(cqbtest_patch_filename_list) >/dev/null
+	if 7z x -y -o"$(get_cqbtest_directory)/../" "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" $(get_cqbtest_patch_filename_list) >/dev/null
 	then
 		echo "Done"
 		true
@@ -407,27 +479,28 @@ extract_cqbtest_patch_files () {
 #########################
 
 check_tcetest_directory () {
-	check_directory "${tcetest_directory}" "${tcetest_name}"
+	check_directory "$(get_tcetest_directory)" "${tcetest_name}"
 }
 
 download_tcetest_full_run_gz () {
-	if download "${tcetest_full_run_gz_url}" "${tcetest_full_run_gz_filepath}" "${tcetest_name} installer archive (${tcetest_full_run_gz_hsize})"
+	if download "${tcetest_full_run_gz_url}" "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_name} installer archive (${tcetest_full_run_gz_hsize})"
 	then
-		verify "${tcetest_full_run_gz_filepath}" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer archive"
+		verify "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer archive"
 	fi
 }
 
 extract_tcetest_full_run () {
-	echo "Extracting ${tcetest_name} installer: ${tcetest_full_run_filepath}"
-	if [ -f "${tcetest_full_run_filepath}" ]
+	echo "Extracting $(get_temporary_filepath "${tcetest_name} installer: ${tcetest_full_run_filename}")"
+	if [ -f "$(get_temporary_filepath "${tcetest_full_run_filename}")" ]
 	then
 		echo "Already there"
 		true
 	else
-		if gzip -d < "${tcetest_full_run_gz_filepath}" > "${tcetest_full_run_filepath}"
+		if gzip -d < "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" \
+		   > "$(get_temporary_filepath "${tcetest_full_run_filename}")"
 		then
 			echo "Done"
-			verify "${tcetest_full_run_filepath}"  "${tcetest_full_run_sum}" "${tcetest_name} installer"
+			verify "$(get_temporary_filepath "${tcetest_full_run_filename}")"  "${tcetest_full_run_sum}" "${tcetest_name} installer"
 		else
 			echo "Failure"
 			false
@@ -437,16 +510,18 @@ extract_tcetest_full_run () {
 }
 
 dump_tcetest_full_tar_gz () {
-	echo "Dump ${tcetest_name} setup archive: ${tcetest_full_tar_gz_filepath}"
-	if [ -f "${tcetest_full_tar_gz_filepath}" ]
+	echo "Dumping $(get_temporary_filepath "${tcetest_name} setup archive: ${tcetest_full_tar_gz_filename}")"
+	if [ -f "$(get_temporary_filepath "${tcetest_full_tar_gz_filename}")" ]
 	then
 		echo "Already there"
 		true
 	else
-		if dd if="${tcetest_full_run_filepath}" of="${tcetest_full_tar_gz_filepath}" ibs="${tcetest_full_tar_gz_offset}" skip=1 obs=1024 status=none
+		if dd if="$(get_temporary_filepath "${tcetest_full_run_filename}")" \
+		      of="$(get_temporary_filepath "${tcetest_full_tar_gz_filename}")" \
+			  ibs="${tcetest_full_tar_gz_offset}" skip=1 obs=1024 status=none
 		then
 			echo "Done"
-			verify "${tcetest_full_tar_gz_filepath}" "${tcetest_full_tar_gz_sum}" "${tcetest_name} setup archive"
+			verify "$(get_temporary_filepath "${tcetest_full_tar_gz_filename}")" "${tcetest_full_tar_gz_sum}" "${tcetest_name} setup archive"
 		else
 			echo "Failure"
 			false
@@ -455,16 +530,17 @@ dump_tcetest_full_tar_gz () {
 }
 
 pick_tcetest_full_tar_bz2 () {
-	echo "Picking ${tcetest_name} archive: ${tcetest_full_tar_bz2_filepath}"
-	if [ -f "${tcetest_full_tar_bz2_filepath}" ]
+	echo "Picking $(get_temporary_filepath "${tcetest_name} archive: ${tcetest_full_tar_bz2_filename}")"
+	if [ -f "$(get_temporary_filepath "${tcetest_full_tar_bz2_filename}")" ]
 	then
 		echo "Already there"
 		true
 	else
-		if tar -xzf "${tcetest_full_tar_gz_filepath}" "./${tcetest_full_tar_bz2_filename}" -O > "${tcetest_full_tar_bz2_filepath}"
+		if tar -xzf "$(get_temporary_filepath "${tcetest_full_tar_gz_filename}")" \
+		   "./${tcetest_full_tar_bz2_filename}" -O > "$(get_temporary_filepath "${tcetest_full_tar_bz2_filename}")"
 		then
 			echo "Done"
-			verify "${tcetest_full_tar_bz2_filepath}" "${tcetest_full_tar_bz2_sum}" "${tcetest_name} archive"
+			verify "$(get_temporary_filepath "${tcetest_full_tar_bz2_filename}")" "${tcetest_full_tar_bz2_sum}" "${tcetest_name} archive"
 		else
 			echo "Failure"
 			false
@@ -473,8 +549,9 @@ pick_tcetest_full_tar_bz2 () {
 }
 
 extract_tcetest_full_files () {
-	echo "Extracting ${tcetest_name} directory: ${tcetest_directory}"
-	if tar -C "${tcetest_directory}/." --strip-components=1 -xjf "${tcetest_full_tar_bz2_filepath}" $(tcetest_full_filename_list)
+	echo "Extracting ${tcetest_name} files"
+	if tar -C "$(get_tcetest_directory)/." --strip-components=1 -xjf \
+	   "$(get_temporary_filepath "${tcetest_full_tar_bz2_filename}")" $(get_tcetest_full_filename_list)
 	then
 		echo "Done"
 		true
@@ -485,15 +562,15 @@ extract_tcetest_full_files () {
 }
 
 download_tcetest_patch_zip () {
-	if download "${tcetest_patch_zip_url}" "${tcetest_patch_zip_filepath}" "${tcetest_name} patch file (${tcetest_patch_zip_hsize})"
+	if download "${tcetest_patch_zip_url}" "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" "${tcetest_name} patch file (${tcetest_patch_zip_hsize})"
 	then
-		verify "${tcetest_patch_zip_filepath}" "${tcetest_patch_zip_sum}" "${tcetest_name} patch file"
+		verify "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" "${tcetest_patch_zip_sum}" "${tcetest_name} patch file"
 	fi
 }
 
 extract_tcetest_patch_files () {
 	echo "Extracting ${tcetest_name} patch files"
-	if 7z x -y -o"${tcetest_directory}/./" "${tcetest_patch_zip_filepath}" $(tcetest_patch_filename_list) >/dev/null
+	if 7z x -y -o"$(get_tcetest_directory)/./" "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" $(get_tcetest_patch_filename_list) >/dev/null
 	then
 		echo "Done"
 		true
@@ -508,43 +585,19 @@ extract_tcetest_patch_files () {
 #######################
 
 check_truecombat_directory () {
-	check_directory "${truecombat_directory}" "${truecombat_name}"
+	check_directory "$(get_truecombat_directory)" "${truecombat_name}"
 }
 
 download_truecombat_full_11_zip () {
-	if download "${truecombat_full_11_zip_url}" "${truecombat_full_11_zip_filepath}" "${truecombat_name} patch file (${truecombat_full_11_zip_hsize})"
+	if download "${truecombat_full_11_zip_url}" "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" "${truecombat_name} patch file (${truecombat_full_11_zip_hsize})"
 	then
-		verify "${truecombat_full_11_zip_filepath}" "${truecombat_full_11_zip_sum}" "${truecombat_name} patch file"
+		verify "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" "${truecombat_full_11_zip_sum}" "${truecombat_name} patch file"
 	fi
 }
 
 extract_truecombat_full_11_files () {
 	echo "Extracting ${truecombat_name} zip files"
-	if 7z x -y -o"${truecombat_directory}/../" "${truecombat_full_11_zip_filepath}" $(truecombat_full_11_zip_filename_list) >/dev/null
-	then
-		echo "Done"
-		true
-	else
-		echo "Failure"
-		false
-	fi
-}
-
-extract_truecombat_patch_12_files () {
-	echo "Extracting ${truecombat_name} zip files"
-	if 7z x -y -o"${truecombat_directory}/./" "${truecombat_patch_12_zip_filepath}" $(truecombat_patch_12_zip_filename_list) >/dev/null
-	then
-		echo "Done"
-		true
-	else
-		echo "Failure"
-		false
-	fi
-}
-
-extract_truecombat_patch_13_files () {
-	echo "Extracting ${truecombat_name} zip files"
-	if 7z x -y -o"${truecombat_directory}/./" "${truecombat_patch_13_zip_filepath}" $(truecombat_patch_13_zip_filename_list) >/dev/null
+	if 7z x -y -o"$(get_truecombat_directory)/../" "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" $(get_truecombat_full_11_zip_filename_list) >/dev/null
 	then
 		echo "Done"
 		true
@@ -555,36 +608,61 @@ extract_truecombat_patch_13_files () {
 }
 
 download_truecombat_patch_12_zip () {
-	if download "${truecombat_patch_12_zip_url}" "${truecombat_patch_12_zip_filepath}" "${truecombat_name} patch file (${truecombat_patch_12_zip_hsize})"
+	if download "${truecombat_patch_12_zip_url}" "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" "${truecombat_name} patch file (${truecombat_patch_12_zip_hsize})"
 	then
-		verify "${truecombat_patch_12_zip_filepath}" "${truecombat_patch_12_zip_sum}" "${truecombat_name} patch file"
+		verify "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" "${truecombat_patch_12_zip_sum}" "${truecombat_name} patch file"
+	fi
+}
+
+extract_truecombat_patch_12_files () {
+	echo "Extracting ${truecombat_name} zip files"
+	if 7z x -y -o"$(get_truecombat_directory)/./" "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" $(get_truecombat_patch_12_zip_filename_list) >/dev/null
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
 	fi
 }
 
 download_truecombat_patch_13_zip () {
-	if download "${truecombat_patch_13_zip_url}" "${truecombat_patch_13_zip_filepath}" "${truecombat_name} patch file (${truecombat_patch_13_zip_hsize})"
+	if download "${truecombat_patch_13_zip_url}" "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" "${truecombat_name} patch file (${truecombat_patch_13_zip_hsize})"
 	then
-		verify "${truecombat_patch_13_zip_filepath}" "${truecombat_patch_13_zip_sum}" "${truecombat_name} patch file"
+		verify "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" "${truecombat_patch_13_zip_sum}" "${truecombat_name} patch file"
 	fi
 }
+
+extract_truecombat_patch_13_files () {
+	echo "Extracting ${truecombat_name} zip files"
+	if 7z x -y -o"$(get_truecombat_directory)/./" "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" $(get_truecombat_patch_13_zip_filename_list) >/dev/null
+	then
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
 
 ## TrueCombat 0.45 Stuff
 ########################
 
 check_q3tc045_directory () {
-	check_directory "${q3tc045_directory}" "${q3tc045_name}"
+	check_directory "$(get_q3tc045_directory)" "${q3tc045_name}"
 }
 
 download_q3tc045_full_zip () {
-	if download "${q3tc045_full_zip_url}" "${q3tc045_full_zip_filepath}" "${q3tc045_name} patch file (${q3tc045_full_zip_hsize})"
+	if download "${q3tc045_full_zip_url}" "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" "${q3tc045_name} patch file (${q3tc045_full_zip_hsize})"
 	then
-		verify "${q3tc045_full_zip_filepath}" "${q3tc045_full_zip_sum}" "${q3tc045_name} patch file"
+		verify "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" "${q3tc045_full_zip_sum}" "${q3tc045_name} patch file"
 	fi
 }
 
 extract_q3tc045_full_files () {
 	echo "Extracting ${q3tc045_name} zip files"
-	if 7z x -y -o"${q3tc045_directory}/../" "${q3tc045_full_zip_filepath}" $(q3tc045_full_zip_filename_list) >/dev/null
+	if 7z x -y -o"$(get_q3tc045_directory)/../" "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" $(get_q3tc045_full_zip_filename_list) >/dev/null
 	then
 		echo "Done"
 		true
@@ -599,14 +677,14 @@ extract_q3tc045_full_files () {
 ########
 
 purge () {
-	if [ "x${will_purge}" = "xtrue" ]
+	if [ "x${purge_after}" = "xtrue" ]
 	then
-		for downloadable_filepath in $(downloadable_filepath_list)
+		for temporary_filename in $(get_temporary_filename_list)
 		do
-			if [ -f "${downloadable_filepath}" ]
+			if [ -f "$(get_temporary_filepath "${temporary_filename}")" ]
 			then
-				echo "Deleting ${downloadable_filepath} file"
-				if rm "${downloadable_filepath}"
+				echo "Deleting $(get_temporary_filepath "${temporary_filename}") file"
+				if rm "$(get_temporary_filepath "${temporary_filename}")"
 				then
 					echo "Success"
 					true
@@ -617,10 +695,10 @@ purge () {
 				fi
 			fi
 		done
-		if [ -d "${downloadable_directory}" ]
+		if [ -d "${temporary_directory}" ]
 		then
-			echo "Deleting ${download_directory} directory"
-			if rmdir "${downloadable_directory}"
+			echo "Deleting ${temporary_directory} directory"
+			if rmdir "${temporary_directory}"
 			then
 				echo "Success"
 				true
@@ -637,22 +715,30 @@ purge () {
 ## Installation
 ###############
 
-install_cqbtest () {
-	check_download_directory \
-	&& check_etlegacy_directory \
-	&& check_cqbtest_directory \
+download_cqbtest () {
+	check_temporary_directory \
 	&& download_cqbtest_full_zip \
-	&& download_cqbtest_patch_zip \
+	&& download_cqbtest_patch_zip
+}
+
+download_and_install_cqbtest () {
+	check_etlegacy_directory \
+	&& check_cqbtest_directory \
+	&& download_cqbtest \
 	&& extract_cqbtest_full_files \
 	&& extract_cqbtest_patch_files
 }
 
-install_tcetest () {
-	check_download_directory \
-	&& check_etlegacy_directory \
-	&& check_tcetest_directory \
+download_tcetest () {
+	check_temporary_directory \
 	&& download_tcetest_full_run_gz \
-	&& download_tcetest_patch_zip \
+	&& download_tcetest_patch_zip
+}
+
+download_and_install_tcetest () {
+	check_etlegacy_directory \
+	&& check_tcetest_directory \
+	&& download_tcetest \
 	&& extract_tcetest_full_run \
 	&& dump_tcetest_full_tar_gz \
 	&& pick_tcetest_full_tar_bz2 \
@@ -660,23 +746,31 @@ install_tcetest () {
 	&& extract_tcetest_patch_files
 }
 
-install_truecombat () {
-	check_download_directory \
-	&& check_ioquake3_directory \
-	&& check_truecombat_directory \
+download_truecombat () {
+	check_temporary_directory \
 	&& download_truecombat_full_11_zip \
 	&& download_truecombat_patch_12_zip \
-	&& download_truecombat_patch_13_zip \
+	&& download_truecombat_patch_13_zip
+}
+
+download_and_install_truecombat () {
+	check_ioquake3_directory \
+	&& check_truecombat_directory \
+	&& download_truecombat \
 	&& extract_truecombat_full_11_files \
 	&& extract_truecombat_patch_12_files \
 	&& extract_truecombat_patch_13_files
 }
 
-install_q3tc045 () {
-	check_download_directory \
-	&& check_ioquake3_directory \
+download_q3tc045 () {
+	check_temporary_directory \
+	&& download_q3tc045_full_zip
+}
+
+download_and_install_q3tc045 () {
+	check_ioquake3_directory \
 	&& check_q3tc045_directory \
-	&& download_q3tc045_full_zip \
+	&& download_q3tc045 \
 	&& extract_q3tc045_full_files
 }
 
@@ -692,59 +786,66 @@ print_help () {
 	${wolfet_name} and ${quake3_name} games.
 	
 	Without MOD NAME:
-	- installs ${cqbtest_name} ${cqbtest_version} for
+	- installs $(get_cqbtest_description) for
 	  ${wolfet_name} in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
 
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
-	- downloads temporary files to “${default_download_directory}” directory.
+	- downloads temporary files to “${default_temporary_directory}” directory.
 	- does not purge downloaded temporary files.
 	- asks user before doing anything.
 
 	OPTIONS
-	${tab}-dl=PATH,  --download-directory=PATH    download files in PATH directory
+	${tab}-tmp=PATH, --temporary-directory=PATH
+	${tab}    download files in PATH directory
+	${tab}-etl=PATH, --etlegacy-directory=PATH
+	${tab}    install ${wolfet_name} mods in PATH directory
+	${tab}-ioq=PATH, --ioquake3-directory=PATH
+	${tab}    install ${quake3_name} mods in PATH directory
 
-	${tab}-etl=PATH, --etlegacy-directory=PATH    install ${wolfet_name} mods
-	${tab}                                        in PATH directory
-	${tab}-ioq=PATH, --ioquake3-directory=PATH    install ${quake3_name} mods
-	${tab}                                        in PATH directory
-
-	${tab}-ni, --not-interactive    do not ask before doing something
-	${tab}-f,  --force-redownload   force to download again already downloaded files
-	${tab}-p,  --purge-after        purge downloaded temporary files after installation
-	${tab}-h,  --help               print this help
+	${tab}-y, --yes
+	${tab}    assume yes, do not ask before doing something
+	${tab}-f,  --force-redownload
+	${tab}    force to download again already downloaded files
+	${tab}-p,  --purge-after
+	${tab}    purge downloaded temporary files after installation
+	${tab}-h,  --help
+	${tab}    print this help
 
 	MOD NAMES
-	${tab}cqb, cqbtest   ${cqbtest_name} ${cqbtest_version}
-	${tab}               for ${wolfet_name}
-	${tab}tce, tcetest   ${tcetest_name} ${tcetest_version}
-	${tab}               for ${wolfet_name}
-	${tab}truecombat     ${truecombat_name} ${truecombat_version}
-	${tab}               for ${quake3_name}
-	${tab}q3tc045        ${q3tc045_name} ${q3tc045_version}
-	${tab}               for ${quake3_name}
+	${tab}cqb, cqbtest
+	${tab}    $(get_cqbtest_full_description)
+	${tab}tce, tcetest
+	${tab}    $(get_tcetest_full_description)
+	${tab}truecombat
+	${tab}    $(get_truecombat_full_description)
+	${tab}q3tc045
+	${tab}    $(get_q3tc045_full_description)
 
-	${tab}default        an alias for “cqbtest”
-	${tab}all            an alias for “cqbtest tcetest truecombat q3tc045”
+	${tab}default
+	${tab}    an alias for “cqbtest”
+	${tab}all
+	${tab}    an alias for “cqbtest tcetest truecombat q3tc045”
 
-	${tab}nothing        nothing
+	${tab}nothing
+	${tab}    nothing
 
 	EXAMPLES
 	To install ${cqbtest_name} ${cqb_version}:
 	$ ${0}
 
-	To install both ${cqbtest_name} ${cqbtest_version}
-	and ${tcetest_name} ${tcetest_version}:
+	To install both $(get_cqbtest_description)
+	and $(get_tcetest_description):
 	$ ${0} cqbtest tcetest
 
 	To purge already downloaded files without installing anything more:
 	$ ${0} --purge-after nothing
 
-	To install ${truecombat_name} ${truecombat_version} mod using a random temporary directory, automatically
+	To install $(get_truecombat_description) mod using a random temporary directory, automatically
 	deleting temporary files, in non interactive mode:
 	$ ${0} -p -ni -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
-	To install ${tcetest_name} ${tcetest_version} mod inside
+	To install $(get_tcetest_description) mod inside
 	${wolfet_name} user directory (not recommended at all):
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
@@ -757,11 +858,12 @@ print_help () {
 parse_args () {
 	etlegacy_directory="${HOME}/${etlegacy_user_directory}"
 	ioquake3_directory="${HOME}/${ioquake3_user_directory}"
-	download_directory="${default_download_directory}"
-	will_purge="false"
+	temporary_directory="${default_temporary_directory}"
+	purge_after="false"
 	force_redownload="false"
+	download_only="false"
 	install_nothing="false"
-	is_interactive="true"
+	assume_yes="true"
 	mod_list=""
 
 	for arg in ${@}
@@ -785,23 +887,26 @@ parse_args () {
 			nothing)
 				install_nothing="true"
 				;;
-			--purge-after|-p)
-				will_purge="true"
-				;;
-			--force-redownload|-f)
-				force_redownload="true";
-				;;
-			--download-directory=*|-dl=*)
-				download_directory="$(echo "${arg}" | cut -d'=' -f2)"
+			--temporary-directory=*|-tmp=*)
+				temporary_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
 				;;
 			--etlegacy-directory=*|-etl=*)
-				etlegacy_directory="$(echo "${arg}" | cut -d'=' -f2)"
+				etlegacy_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
 				;;
 			--ioquake3-directory=*|-ioq=*)
-				ioquake3_directory="$(echo "${arg}" | cut -d'=' -f2)"
+				ioquake3_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
 				;;
-			--not-interactive|-ni)
-				is_interactive="true"
+			--purge-after|-p)
+				purge_after="true"
+				;;
+			--force-redownload|-f)
+				force_redownload="true"
+				;;
+			--download-only|-dl)
+				download_only="true"
+				;;
+			--yes|-y)
+				assume_yes="false"
 				;;
 			--help|-h)
 				print_help
@@ -829,48 +934,36 @@ parse_args () {
 
 print_configuration () {
 	echo "Configuration:"
-	echo "- download directory: ${download_directory}"
-	echo "- etlegacy directory: ${etlegacy_directory}"
-	echo "- ioquake3 directory: ${ioquake3_directory}"
+	echo "- Temporary directory: ${temporary_directory}"
+	echo "- ${etlegacy_name} directory: ${etlegacy_directory}"
+	echo "- ${ioquake3_name} directory: ${ioquake3_directory}"
 
 	if [ "x${install_nothing}" = "xtrue" ]
 	then
-		echo "Will install ${mod_list}"
+		echo "No mod selected"
 	else
-		echo "Will install:"
+		echo "Selected mods:"
 		for mod_name in ${mod_list}
 		do
-			case "${mod_name}" in
-				cqbtest)
-					echo "- ${cqbtest_name} ${cqbtest_version} for ${wolfet_name}"
-					echo "  ${mod_name} in ${cqbtest_directory}"
-					;;
-				tcetest)
-					echo "- ${tcetest_name} ${tcetest_version} for ${wolfet_name}"
-					echo "  ${mod_name} in ${tcetest_directory}"
-					;;
-				truecombat)
-					echo "- ${truecombat_name} ${truecombat_version} for ${quake3_name}"
-					echo "  ${mod_name} in ${truecombat_directory}"
-					;;
-				q3tc045)
-					echo "- ${q3tc045_name} ${q3tc045_version} for ${quake3_name}"
-					echo "  ${mod_name} in ${q3tc045_directory}"
-					;;
-			esac
+			echo "- $("get_${mod_name}_full_description")"
+			echo "  Will download $("get_${mod_name}_downloadable_filename_list" | tr '\n' ' ')in ${temporary_directory}"
+			if [ "x${download_only}" = "xfalse" ]
+			then
+				echo "  Will install ${mod_name} in $("get_${mod_name}_directory")"
+			fi
 		done
 	fi
 
-	if [ "x${will_purge}" = "xfalse" ]
+	if [ "x${purge_after}" = "xfalse" ]
 	then
-		echo "Will not purge temporary downloaded files"
+		echo "Will not purge temporary files"
 	else
-		echo "Will purge temporary downloaded files"
+		echo "Will purge temporary files"
 	fi
 }
 
 ask_continue () {
-	if [ "x${is_interactive}" = "xtrue" ]
+	if [ "x${assume_yes}" = "xtrue" ]
 	then
 		printf "Continue (Y/n)?"
 		read answer
@@ -889,7 +982,6 @@ ask_continue () {
 main () {
 	constants
 	parse_args ${@}
-	configure
 	print_configuration
 
 	ask_continue
@@ -898,20 +990,12 @@ main () {
 	then
 		for mod_name in ${mod_list}
 		do
-			case "${mod_name}" in
-				cqbtest)
-					install_cqbtest
-					;;
-				tcetest)
-					install_tcetest
-					;;
-				truecombat)
-					install_truecombat
-					;;
-				q3tc045)
-					install_q3tc045
-					;;
-			esac
+			if [ "x${download_only}" = "xtrue" ]
+			then
+				"download_${mod_name}"
+			else
+				"download_and_install_${mod_name}"
+			fi
 		done
 	fi
 

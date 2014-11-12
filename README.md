@@ -41,35 +41,42 @@ Without OPTION:
 - asks user before doing anything.
 
 OPTIONS
-	-dl=PATH,  --download-directory=PATH    download files in PATH directory
+	-tmp=PATH, --temporary-directory=PATH
+	    download files in PATH directory
+	-etl=PATH, --etlegacy-directory=PATH
+	    install Wolfenstein: Enemy Territory mods in PATH directory
+	-ioq=PATH, --ioquake3-directory=PATH
+	    install Quake Ⅲ Arena mods in PATH directory
 
-	-etl=PATH, --etlegacy-directory=PATH    install Wolfenstein: Enemy Territory mods
-	                                        in PATH directory
-	-ioq=PATH, --ioquake3-directory=PATH    install Quake Ⅲ Arena mods
-	                                        in PATH directory
-
-	-ni, --not-interactive    do not ask before doing something
-	-f,  --force-redownload   force to download again already downloaded files
-	-p,  --purge-after        purge downloaded temporary files after installation
-	-h,  --help               print this help
+	-y, --yes
+	    assume yes, do not ask before doing something
+	-f,  --force-redownload
+	    force to download again already downloaded files
+	-p,  --purge-after
+	    purge downloaded temporary files after installation
+	-h,  --help
+	    print this help
 
 MOD NAMES
-	cqb, cqbtest   TrueCombat:Close Quarters Battle alpha 0.22 patch 3
-	               for Wolfenstein: Enemy Territory
-	tce, tcetest   TrueCombat:Elite beta 0.4 build 9 patch b
-	               for Wolfenstein: Enemy Territory
-	truecombat     TrueCombat beta 1.3
-	               for Quake Ⅲ Arena
-	q3tc045        TrueCombat beta 0.45 build 12
-	               for Quake Ⅲ Arena
+	cqb, cqbtest
+	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for Wolfenstein: Enemy Territory
+	tce, tcetest
+	    TrueCombat:Elite beta 0.4 build 9 patch b for Wolfenstein: Enemy Territory
+	truecombat
+	    TrueCombat beta 1.3 for Quake Ⅲ Arena
+	q3tc045
+	    TrueCombat beta 0.45 build 12 for Quake Ⅲ Arena
 
-	default        an alias for “cqbtest”
-	all            an alias for “cqbtest tcetest truecombat q3tc045”
+	default
+	    an alias for “cqbtest”
+	all
+	    an alias for “cqbtest tcetest truecombat q3tc045”
 
-	nothing        nothing
+	nothing
+	    nothing
 
 EXAMPLES
-To install TrueCombat:Close Quarters Battle:
+To install TrueCombat:Close Quarters Battle :
 $ ./truecombat_installer.sh
 
 To install both TrueCombat:Close Quarters Battle alpha 0.22 patch 3
@@ -90,6 +97,7 @@ $ ./truecombat_installer.sh -etl="${HOME}/.etwolf"
 To install all mods inside system directories:
 # ./truecombat_installer.sh -ioq="/usr/share/games/quake3" \
     -etl="/usr/share/games/etlegacy" all
+
 ```
 
 Warning
