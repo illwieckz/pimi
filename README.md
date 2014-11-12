@@ -1,19 +1,28 @@
-TrueCombat Installer
-====================
+PIMI
+====
 
 Description
 -----------
 
-This tool helps users to install [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
+PIMI stand for “Popular idTech mod installer”.
+
+This tool helps users to install [Wolfenstein: Enemy Territory](http://www.splashdamage.com/wolfet) [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
 
 Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engines are supported since they are the only viable way to get a working setup in modern distributions. However it will not impede you to use deprecated engines.
 
-Current mods supported:
+Current Wolfenstein: Enemy Territory mods supported:
 
-* **TrueCombat:Close Quarters Battle alpha 0.223** for Wolfenstein: Enemy Territory
-* **TrueCombat:Elite beta 0.4 build 9b** for Wolfenstein: Enemy Territory
-* **TrueCombat beta 1.3** for Quake Ⅲ Arena
-* **TrueCombat beta 0.45 build 12** for Quake Ⅲ Arena
+* **TrueCombat:Close Quarters Battle alpha 0.223**
+* **TrueCombat:Elite beta 0.4 build 9b**
+
+Current Quake Ⅲ Arena mods supported:
+
+* **TrueCombat beta 1.3**
+* **TrueCombat beta 0.45 build 12**
+
+Special ET:Legacy mod to be supported:
+
+* **Wolfenstein: Enemy Territory**
 
 This tool can help users to install these mods or to help packagers to build a package or write an installer around this downloader.
 
@@ -22,17 +31,13 @@ Additionnal Mac OS X and Windows binaries and libraries are not extracted from o
 Help
 ----
 
-From `./truecombat_installer.sh --help`:
+From `./pimi.sh --help`:
 
 ```
-Usage: ./truecombat_installer.sh [OPTION]... [MOD NAME]...
+Usage: ./pimi.sh [OPTION]... MOD NAME [MOD NAME]...
 
-./truecombat_installer.sh is a tool to install TrueCombat mods for
-Wolfenstein: Enemy Territory and Quake Ⅲ Arena games.
-
-Without MOD NAME:
-- installs TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for
-  Wolfenstein: Enemy Territory in “${HOME}/.etlegacy/cqbtest”.
+./pimi.sh is a tool to install popular mods for
+Enemy Territory: Legacy and ioquake3 engines.
 
 Without OPTION:
 - installs mods in Enemy Territory: Legacy and ioquake3 user directories.
@@ -44,7 +49,7 @@ OPTIONS
 	-tmp=PATH, --temporary-directory=PATH
 	    download files in PATH directory
 	-etl=PATH, --etlegacy-directory=PATH
-	    install Wolfenstein: Enemy Territory mods in PATH directory
+	    install Enemy Territory: Legacy mods in PATH directory
 	-ioq=PATH, --ioquake3-directory=PATH
 	    install Quake Ⅲ Arena mods in PATH directory
 
@@ -59,16 +64,14 @@ OPTIONS
 
 MOD NAMES
 	cqb, cqbtest
-	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for Wolfenstein: Enemy Territory
+	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for Enemy Territory: Legacy
 	tce, tcetest
-	    TrueCombat:Elite beta 0.4 build 9 patch b for Wolfenstein: Enemy Territory
+	    TrueCombat:Elite beta 0.4 build 9 patch b for Enemy Territory: Legacy
 	truecombat
-	    TrueCombat beta 1.3 for Quake Ⅲ Arena
+	    TrueCombat beta 1.3 for ioquake3
 	q3tc045
-	    TrueCombat beta 0.45 build 12 for Quake Ⅲ Arena
+	    TrueCombat beta 0.45 build 12 for ioquake3
 
-	default
-	    an alias for “cqbtest”
 	all
 	    an alias for “cqbtest tcetest truecombat q3tc045”
 
@@ -77,27 +80,25 @@ MOD NAMES
 
 EXAMPLES
 To install TrueCombat:Close Quarters Battle :
-$ ./truecombat_installer.sh
+$ ./pimi.sh cqbtest
 
 To install both TrueCombat:Close Quarters Battle alpha 0.22 patch 3
 and TrueCombat:Elite beta 0.4 build 9 patch b:
-$ ./truecombat_installer.sh cqbtest tcetest
+$ ./pimi.sh cqbtest tcetest
 
 To purge already downloaded files without installing anything more:
-$ ./truecombat_installer.sh --purge-after nothing
+$ ./pimi.sh --purge-after nothing
 
 To install TrueCombat beta 1.3 mod using a random temporary directory, automatically
 deleting temporary files, in non interactive mode:
-$ ./truecombat_installer.sh -p -ni -dl="$(mktemp -d)" truecombat
+$ ./pimi.sh -p -ni -dl="$(mktemp -d)" truecombat
 
 To install TrueCombat:Elite beta 0.4 build 9 patch b mod inside
 Wolfenstein: Enemy Territory user directory (not recommended at all):
-$ ./truecombat_installer.sh -etl="${HOME}/.etwolf"
+$ ./pimi.sh -etl="${HOME}/.etwolf"
 
 To install all mods inside system directories:
-# ./truecombat_installer.sh -ioq="/usr/share/games/quake3" \
-    -etl="/usr/share/games/etlegacy" all
-
+# ./pimi.sh -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
 ```
 
 Warning

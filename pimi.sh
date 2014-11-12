@@ -47,13 +47,13 @@ constants () {
 	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
 	cqbtest_full_zip_sum="361b3e0ef8e35a5cb6550a9a8df06f85604d21f898b7c504d24119880add7b46b436f884f550930491f2a6ed071eae8b88678f61dc06e4fdb4efdd8959799aef"
 	cqbtest_full_zip_size="309240933"
-	cqbtest_full_zip_hsize="295M"
+	cqbtest_full_zip_hsize="295Mb"
 
 	cqbtest_patch_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1287&Itemid=17"
 	cqbtest_patch_zip_filename="cqb_alpha0223_win_linux_patch.zip"
 	cqbtest_patch_zip_sum="5fa0c927c34fbffe19a2f7b05cdd361305c7d8b1b00076281e19087716c26e938d4d1e27bea25ba9d74f075ca6ea1766269a4b71f6f7db4764b43d4619804c91"
 	cqbtest_patch_zip_size="10680693"
-	cqbtest_patch_zip_hsize="11M"
+	cqbtest_patch_zip_hsize="11Mb"
 
 	tcetest_full_run_gz_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
 	tcetest_full_run_gz_filename="TrueCombatElite_v049_Linux.run.gz"
@@ -84,25 +84,25 @@ constants () {
 	truecombat_full_11_zip_filename="TrueCombat11Full.zip"
 	truecombat_full_11_zip_sum="a4b36cd444d7de277ee6be5e3af038bb4aa583a2ce4b4a554c19ac46af628dbe045b77c3474e1a29736bb0624b62ff776c48202207b8d86daafad514971a5392"
 	truecombat_full_11_zip_size="147175482"
-	truecombat_full_11_zip_hsize="141M"
+	truecombat_full_11_zip_hsize="141Mb"
 
 	truecombat_patch_12_zip_url="http://tce.merlin1991.at/tc/tc1.2_patch.zip"
 	truecombat_patch_12_zip_filename="tc1.2_patch.zip"
 	truecombat_patch_12_zip_sum="5f6f147e9fb24bd0fff5f516a7a492c63ad853eb3bd3a76d17ec4496f7e6a6e8463e07ce53031455f6dce73bc14af647e6673a7b19391e179723a6f253316fcc"
 	truecombat_patch_12_zip_size="99781509"
-	truecombat_patch_12_zip_hsize="96M"
+	truecombat_patch_12_zip_hsize="96Mb"
 
 	truecombat_patch_13_zip_url="http://tce.merlin1991.at/tc/tc1.3_patch.zip"
 	truecombat_patch_13_zip_filename="tc1.3_patch.zip"
 	truecombat_patch_13_zip_sum="a828de3f99d62b1b2e6cfe4542a4bf651ce360f4b130bffb1607c5bf67dad0fa506ba2ff5ffc5cf3ab896f1ae16b4eca74f886192ff81b2d4c4461ffea61aeb3"
 	truecombat_patch_13_zip_size="58386008"
-	truecombat_patch_13_zip_hsize="56M"
+	truecombat_patch_13_zip_hsize="56Mb"
 
 	q3tc045_full_zip_url="http://tce.merlin1991.at/tc/q3tc0.45b12beta.zip"
 	q3tc045_full_zip_filename="q3tc0.45b12beta.zip"
 	q3tc045_full_zip_sum="13be817b709e89d86540c2b307bc5f71e210370dd1a1e26736409b0d6d6665a65c3ce1d41f63cf3c37c35779de3b923db361df03c3ba13a17cfdec5af2524eb6"
 	q3tc045_full_zip_size="93394211"
-	q3tc045_full_zip_hsize="90M"
+	q3tc045_full_zip_hsize="90Mb"
 }
 
 get_cqbtest_description () {
@@ -122,19 +122,19 @@ get_q3tc045_description () {
 }
 
 get_cqbtest_full_description () {
-	echo "$(get_cqbtest_description) for ${wolfet_name}"
+	echo "$(get_cqbtest_description) for ${etlegacy_name}"
 }
 
 get_tcetest_full_description () {
-	echo "$(get_tcetest_description) for ${wolfet_name}"
+	echo "$(get_tcetest_description) for ${etlegacy_name}"
 }
 
 get_truecombat_full_description () {
-	echo "$(get_truecombat_description) for ${quake3_name}"
+	echo "$(get_truecombat_description) for ${ioquake3_name}"
 }
 
 get_q3tc045_full_description () {
-	echo "$(get_q3tc045_description) for ${quake3_name}"
+	echo "$(get_q3tc045_description) for ${ioquake3_name}"
 }
 
 get_cqbtest_directory () {
@@ -780,15 +780,11 @@ download_and_install_q3tc045 () {
 print_help () {
 	tab="$(printf '\t')"
 	cat <<-EOF
-	Usage: ${0} [OPTION]... [MOD NAME]...
+	Usage: ${0} [OPTION]... MOD NAME [MOD NAME]...
 	
-	${0} is a tool to install TrueCombat mods for
-	${wolfet_name} and ${quake3_name} games.
+	${0} is a tool to install popular mods for
+	${etlegacy_name} and ${ioquake3_name} engines.
 	
-	Without MOD NAME:
-	- installs $(get_cqbtest_description) for
-	  ${wolfet_name} in “\${HOME}/${etlegacy_user_directory}/${cqbtest_mod_name}”.
-
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
 	- downloads temporary files to “${default_temporary_directory}” directory.
@@ -799,7 +795,7 @@ print_help () {
 	${tab}-tmp=PATH, --temporary-directory=PATH
 	${tab}    download files in PATH directory
 	${tab}-etl=PATH, --etlegacy-directory=PATH
-	${tab}    install ${wolfet_name} mods in PATH directory
+	${tab}    install ${etlegacy_name} mods in PATH directory
 	${tab}-ioq=PATH, --ioquake3-directory=PATH
 	${tab}    install ${quake3_name} mods in PATH directory
 
@@ -822,8 +818,6 @@ print_help () {
 	${tab}q3tc045
 	${tab}    $(get_q3tc045_full_description)
 
-	${tab}default
-	${tab}    an alias for “cqbtest”
 	${tab}all
 	${tab}    an alias for “cqbtest tcetest truecombat q3tc045”
 
@@ -832,7 +826,7 @@ print_help () {
 
 	EXAMPLES
 	To install ${cqbtest_name} ${cqb_version}:
-	$ ${0}
+	$ ${0} cqbtest
 
 	To install both $(get_cqbtest_description)
 	and $(get_tcetest_description):
@@ -850,8 +844,7 @@ print_help () {
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
 	To install all mods inside system directories:
-	# ${0} -ioq="/usr/share/games/quake3" \\
-	    -etl="/usr/share/games/etlegacy" all
+	# ${0} -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
 	EOF
 }
 
@@ -869,7 +862,7 @@ parse_args () {
 	for arg in ${@}
 	do
 		case "${arg}" in
-			default|cqbtest|cqb)
+			cqbtest|cqb)
 				mod_list="${mod_list} cqbtest"
 				;;
 			tcetest|tce)
@@ -921,7 +914,8 @@ parse_args () {
 
 	if [ "x${mod_list}" = "x" ]
 	then
-		mod_list="cqbtest"
+		install_nothing="true"
+		mod_list="nothing"
 	fi
 
 	if [ "x${install_nothing}" = "xtrue" ]
