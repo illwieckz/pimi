@@ -812,7 +812,7 @@ parse_args () {
 
 	if [ "x${mod_list}" = "x" ]
 	then
-		mod_list="default"
+		mod_list="cqbtest"
 	fi
 
 	if [ "x${install_nothing}" = "xtrue" ]
@@ -857,9 +857,11 @@ print_configuration () {
 		done
 	fi
 
-	if [ "x${will_purge}" = "xtrue" ]
+	if [ "x${will_purge}" = "xfalse" ]
 	then
-		echo "Will purge downloaded files"
+		echo "Will not purge temporary downloaded files"
+	else
+		echo "Will purge temporary downloaded files"
 	fi
 }
 
@@ -893,7 +895,7 @@ main () {
 		for mod_name in ${mod_list}
 		do
 			case "${mod_name}" in
-				test)
+				cqbtest)
 					install_cqbtest
 					;;
 				tcetest)
