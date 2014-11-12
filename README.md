@@ -4,7 +4,7 @@ PIMI
 Description
 -----------
 
-PIMI stand for “Popular idTech mod installer”.
+PIMI stands for “Popular idTech mod installer”.
 
 This tool helps users to install [Wolfenstein: Enemy Territory](http://www.splashdamage.com/wolfet) [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
 
