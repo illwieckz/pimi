@@ -72,18 +72,22 @@ EXAMPLES
 To install TrueCombat:Close Quarters Battle:
 $ ./truecombat_installer.sh
 
+To install both TrueCombat:Close Quarters Battle alpha 0.22 patch 3
+and TrueCombat:Elite beta 0.4 build 9 patch b:
+$ ./truecombat_installer.sh cqbtest tcetest
+
 To purge already downloaded files without installing anything more:
 $ ./truecombat_installer.sh --purge-after nothing
 
 To install TrueCombat beta 1.3 mod using a random temporary directory, automatically
 deleting temporary files, in non interactive mode:
-$ ./truecombat_installer.sh -p -dl="$(mktemp -d)" truecombat
+$ ./truecombat_installer.sh -p -ni -dl="$(mktemp -d)" truecombat
 
-To install TrueCombat:Elite beta 0.4 build 9 patch b mod
-inside Wolfenstein: Enemy Territory user directory (not recommended at all):
+To install TrueCombat:Elite beta 0.4 build 9 patch b mod inside
+Wolfenstein: Enemy Territory user directory (not recommended at all):
 $ ./truecombat_installer.sh -etl="${HOME}/.etwolf"
 
-To install all mods inside system directories (not recommended):
+To install all mods inside system directories:
 # ./truecombat_installer.sh -ioq="/usr/share/games/quake3" \
     -etl="/usr/share/games/etlegacy" all
 ```

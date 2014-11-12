@@ -730,21 +730,25 @@ print_help () {
 	${tab}nothing        nothing
 
 	EXAMPLES
-	To install ${cqbtest_name}:
+	To install ${cqbtest_name} ${cqb_version}:
 	$ ${0}
+
+	To install both ${cqbtest_name} ${cqbtest_version}
+	and ${tcetest_name} ${tcetest_version}:
+	$ ${0} cqbtest tcetest
 
 	To purge already downloaded files without installing anything more:
 	$ ${0} --purge-after nothing
 
 	To install ${truecombat_name} ${truecombat_version} mod using a random temporary directory, automatically
 	deleting temporary files, in non interactive mode:
-	$ ${0} -p -dl="\$(mktemp -d)" ${truecombat_mod_name}
+	$ ${0} -p -ni -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
 	To install ${tcetest_name} ${tcetest_version} mod inside
 	${wolfet_name} user directory (not recommended at all):
 	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
 
-	To install all mods inside system directories (not recommended):
+	To install all mods inside system directories:
 	# ${0} -ioq="/usr/share/games/quake3" \\
 	    -etl="/usr/share/games/etlegacy" all
 	EOF
