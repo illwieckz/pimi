@@ -13,8 +13,11 @@
 constants () {
 	wolfet_name="Wolfenstein: Enemy Territory"
 	etlegacy_name="Enemy Territory: Legacy"
-	quake3_name="Quake Ⅲ Arena"
-	ioquake3_name="ioquake3"
+	quake3arena_name="Quake Ⅲ Arena"
+	openarena_name="OpenArena"
+
+	etlegacy_engine_name="ET:Legacy"
+	ioquake3_engine_name="ioquake3"
 
 	etmain_name="Wolfenstein: Enemy Territory"
 	etmain_mod_name="etmain"
@@ -43,8 +46,8 @@ constants () {
 
 	wolfet_user_directory=".etwolf"
 	etlegacy_user_directory=".etlegacy"
-	ioquake3_user_directory=".q3a"
-	quake3_user_directory=".q3a"
+	quake3arena_user_directory=".q3a"
+	openarena_user_directory=".openarena"
 
 	default_temporary_directory="/tmp/pimi_files"
 
@@ -146,23 +149,23 @@ get_q3tc045_description () {
 }
 
 get_etmain_full_description () {
-	echo "$(get_etmain_description) for ${etlegacy_name}"
+	echo "$(get_etmain_description) for ${etlegacy_engine_name}"
 }
 
 get_cqbtest_full_description () {
-	echo "$(get_cqbtest_description) for ${etlegacy_name}"
+	echo "$(get_cqbtest_description) for ${etlegacy_engine_name}"
 }
 
 get_tcetest_full_description () {
-	echo "$(get_tcetest_description) for ${etlegacy_name}"
+	echo "$(get_tcetest_description) for ${etlegacy_engine_name}"
 }
 
 get_truecombat_full_description () {
-	echo "$(get_truecombat_description) for ${ioquake3_name}"
+	echo "$(get_truecombat_description) for ${ioquake3_engine_name}"
 }
 
 get_q3tc045_full_description () {
-	echo "$(get_q3tc045_description) for ${ioquake3_name}"
+	echo "$(get_q3tc045_description) for ${ioquake3_engine_name}"
 }
 
 get_etmain_directory () {
@@ -178,11 +181,11 @@ get_tcetest_directory () {
 }
 
 get_truecombat_directory() {
-	echo "${ioquake3_directory}/${truecombat_mod_name}"
+	echo "${ioquake3_engine_directory}/${truecombat_mod_name}"
 }
 
 get_q3tc045_directory () {
-	echo "${ioquake3_directory}/${q3tc045_mod_name}"
+	echo "${ioquake3_engine_directory}/${q3tc045_mod_name}"
 }
 
 get_etmain_downloadable_filename_list () {
@@ -521,8 +524,8 @@ check_etlegacy_directory () {
 	check_directory "${etlegacy_directory}" "${etlegacy_name}"
 }
 
-check_ioquake3_directory () {
-	check_directory "${ioquake3_directory}" "${ioquake3_name}"
+check_ioquake3_engine_directory () {
+	check_directory "${ioquake3_engine_directory}" "${quake3arena_name}"
 }
 
 
@@ -946,7 +949,7 @@ download_truecombat () {
 }
 
 download_and_install_truecombat () {
-	check_ioquake3_directory \
+	check_ioquake3_engine_directory \
 	&& check_truecombat_directory \
 	&& download_truecombat \
 	&& extract_truecombat_full_11_files \
@@ -960,7 +963,7 @@ download_q3tc045 () {
 }
 
 download_and_install_q3tc045 () {
-	check_ioquake3_directory \
+	check_ioquake3_engine_directory \
 	&& check_q3tc045_directory \
 	&& download_q3tc045 \
 	&& extract_q3tc045_full_files
@@ -974,10 +977,10 @@ print_help () {
 	cat <<-EOF
 	Usage: ${0} [OPTION]... MOD NAME [MOD NAME]...
 	
-	${0} is a tool to install popular mods for ${etlegacy_name} and ${ioquake3_name} engines.
+	${0} is a tool to install popular mods for ${etlegacy_engine_name} and ${ioquake3_engine_name} engines.
 	
 	Without OPTION:
-	- installs mods in ${etlegacy_name} and ${ioquake3_name} user directories.
+	- installs mods in ${etlegacy_name} and ${quake3arena_name} user directories.
 	- downloads temporary files to “${default_temporary_directory}” directory.
 	- does not purge downloaded temporary files.
 	- asks user before doing anything.
@@ -988,7 +991,10 @@ print_help () {
 	${tab}-etl=PATH, --etlegacy-directory=PATH
 	${tab}    install ${etlegacy_name} mods in PATH directory
 	${tab}-ioq=PATH, --ioquake3-directory=PATH
-	${tab}    install ${quake3_name} mods in PATH directory
+	${tab}    install ${quake3arena_name} mods in PATH directory
+
+	${tab}-oa, --openarena
+	${tab}    install ${quake3arena_name} mods in ${openarena_name} directory
 
 	${tab}-y, --yes
 	${tab}    assume yes, do not ask before doing something
@@ -1018,23 +1024,25 @@ print_help () {
 	${tab}    nothing
 
 	EXAMPLES
-	To install $(get_etmain_full_description):
-	$ ${0} etmain
+	To install ${etmain_name} as an ${etlegacy_name} mod:
+	$ ${0} ${etmain_mod_name}
 
-	To install both $(get_cqbtest_description)
-	and $(get_tcetest_description):
-	$ ${0} cqbtest tcetest
+	To install both ${cqbtest_name} and ${tcetest_name}:
+	$ ${0} ${cqbtest_mod_name} ${tcetest_mod_name}
+
+	To install $(get_q3tc045_description) as an ${openarena_name} mod:
+	$ ${0} -oa ${q3tc045_mod_name}
 
 	To purge already downloaded files without installing anything more:
 	$ ${0} --purge-after nothing
 
-	To install $(get_truecombat_description) mod using a random temporary directory, automatically
+	To install $(get_truecombat_description) using a random temporary directory, automatically
 	deleting temporary files, in non interactive mode:
 	$ ${0} -p -ni -dl="\$(mktemp -d)" ${truecombat_mod_name}
 
-	To install $(get_tcetest_description) mod inside
-	${wolfet_name} user directory (not recommended at all):
-	$ ${0} -etl="\${HOME}/${wolfet_user_directory}"
+	To install ${tcetest_name} inside ${wolfet_name} user directory
+	which is not recommended at all:
+	$ ${0} -etl="\${HOME}/${wolfet_user_directory}" ${tcetest_mod_name}
 
 	To install all mods inside system directories:
 	# ${0} -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
@@ -1043,7 +1051,7 @@ print_help () {
 
 parse_args () {
 	etlegacy_directory="${HOME}/${etlegacy_user_directory}"
-	ioquake3_directory="${HOME}/${ioquake3_user_directory}"
+	ioquake3_engine_directory="${HOME}/${quake3arena_user_directory}"
 	temporary_directory="${default_temporary_directory}"
 	purge_after="false"
 	force_redownload="false"
@@ -1083,7 +1091,10 @@ parse_args () {
 				etlegacy_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
 				;;
 			--ioquake3-directory=*|-ioq=*)
-				ioquake3_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
+				ioquake3_engine_directory="$(echo "${arg}" | sed -e "s/[^=.]*=//")"
+				;;
+			--openarena|-oa)
+				ioquake3_engine_directory="${HOME}/${openarena_user_directory}"
 				;;
 			--purge-after|-p)
 				purge_after="true"
@@ -1125,8 +1136,8 @@ parse_args () {
 print_configuration () {
 	echo "Configuration:"
 	echo "- Temporary directory: ${temporary_directory}"
-	echo "- ${etlegacy_name} directory: ${etlegacy_directory}"
-	echo "- ${ioquake3_name} directory: ${ioquake3_directory}"
+	echo "- ${etlegacy_engine_name} directory: ${etlegacy_directory}"
+	echo "- ${ioquake3_engine_name} directory: ${ioquake3_engine_directory}"
 
 	if [ "x${install_nothing}" = "xtrue" ]
 	then
