@@ -4,7 +4,7 @@ PIMI
 Description
 -----------
 
-PIMI stands for “Popular idTech mod installer”.
+PIMI stands for “Popular IdTech Mod Installer”.
 
 This tool helps users to install [Wolfenstein: Enemy Territory](http://www.splashdamage.com/wolfet) and [TrueCombat](http://truecombatelite.com/) mods on GNU/Linux systems.
 
@@ -13,8 +13,8 @@ Only [ET:Legacy](http://etlegacy.com/) and [ioquake3](http://ioquake3.org/) engi
 Supported ET:Legacy mods:
 
 * **Wolfenstein: Enemy Territory 2.60 patch b**
-* **TrueCombat:Close Quarters Battle alpha 0.223**
-* **TrueCombat:Elite beta 0.4 build 9b**
+* **TrueCombat:Close Quarters Battle alpha 0.22 patch 3**
+* **TrueCombat:Elite beta 0.4 build 9 patch b**
 
 Supported ioquake3 mods:
 
@@ -101,12 +101,12 @@ To install all mods inside system directories:
 Warning
 -------
 
-TrueCombat mods run on 32bit i386 platform only.
+TrueCombat:Elite and TrueCombat:Close Quarters Battle mods run on 32bit i386 platform only.
 
 TrueCombat:Elite is distributed as a bzip2 tarball inside a gzip tarball embeddeded in a gzipped shell script plus a zip patch archive.
 Extracting this mod will perform all these steps backwards, and will fill some gigabytes in your temporary directory.
 
-It's a good idea to install mods in a temporary directory and to check if all is fine before writing inside an existing ET:Legacy or ioquake3 installation.
+Beware, PIMI will overwrite existing installation.
 
 No warranty is given, use this at your own risk.
 

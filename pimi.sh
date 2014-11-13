@@ -254,38 +254,42 @@ get_temporary_filename_list () {
 
 get_etmain_full_filename_list () {
 	cat <<-EOF
-	./etmain/description.txt
 	./etmain/pak0.pk3
-	./etmain/lmscycle.cfg
-	./etmain/server.cfg
-	./etmain/video/etintro.roq
-	./etmain/stopwatchcycle.cfg
-	./etmain/objectivecycle.cfg
 	./etmain/pak1.pk3
-	./etmain/mp_bin.pk3
-	./etmain/punkbuster.cfg
-	./etmain/campaigncycle.cfg
 	./etmain/pak2.pk3
-	./etmain/hunkusage.dat
-	./etmain/ui.mp.i386.so
+	./etmain/video/etintro.roq
+	EOF
+
+	<<-NOT_NECESSARY
+	./etmain/campaigncycle.cfg
 	./etmain/cgame.mp.i386.so
+	./etmain/description.txt
+	./etmain/hunkusage.dat
+	./etmain/lmscycle.cfg
+	./etmain/mp_bin.pk3
+	./etmain/objectivecycle.cfg
 	./etmain/qagame.mp.i386.so
-EOF
+	./etmain/server.cfg
+	./etmain/stopwatchcycle.cfg
+	./etmain/ui.mp.i386.so
+	NOT_NECESSARY
 }
 
-# Files in subdirectory “Help/” not described here but extracted
 get_etmain_full_docs_filename_list () {
 	cat <<-EOF
 	./Docs/EULA_Wolfenstein_Enemy_Territory.txt
-	./Docs/MSR.rtf
 	./Docs/License.rtf
-	./Docs/Help/
+	./ET.xpm
 	EOF
+
+	<<-NOT_NECESSARY
+	./Docs/MSR.rtf
+	./Docs/Help/
+	NOT_NECESSARY
 }
 
 get_cqbtest_full_filename_list () {
 	cat <<-EOF
-	cqbtest/autoexec.cfg
 	cqbtest/EULA_TrueCombat_CQB.txt
 	cqbtest/pak0.pk3
 	cqbtest/pak1.pk3
@@ -294,6 +298,10 @@ get_cqbtest_full_filename_list () {
 	cqbtest/pak4.pk3
 	cqbtest/readme.txt
 	EOF
+
+	<<-NOT_NECESSARY
+	cqbtest/autoexec.cfg
+	NOT_NECESSARY
 }
 
 get_cqbtest_patch_filename_list () {
@@ -310,7 +318,6 @@ get_cqbtest_patch_filename_list () {
 
 get_tcetest_full_filename_list () {
 	cat <<-EOF
-	tcetest/autoexec.cfg
 	tcetest/cgame.mp.i386.so
 	tcetest/changelog.rtf
 	tcetest/official.dat
@@ -320,6 +327,10 @@ get_tcetest_full_filename_list () {
 	tcetest/pak3.pk3
 	tcetest/ReadMe.rtf
 	EOF
+
+	<<-NOT_NECESSARY
+	tcetest/autoexec.cfg
+	NOT_NECESSARY
 }
 
 get_tcetest_patch_filename_list () {
@@ -340,13 +351,11 @@ get_truecombat_full_11_zip_filename_list () {
 	truecombat/1lifecycle.cfg
 	truecombat/3life.cfg
 	truecombat/3lifecycle.cfg
-	truecombat/5th*Readmes/5th.zip
 	truecombat/ctf.cfg
 	truecombat/ctfcycle.cfg
 	truecombat/inflife.cfg
 	truecombat/inflifecycle.cfg
 	truecombat/description.txt
-	truecombat/games.log
 	truecombat/mapfiles
 	truecombat/maplist.cfg
 	truecombat/map_pak0.pk3
@@ -357,14 +366,23 @@ get_truecombat_full_11_zip_filename_list () {
 	truecombat/rotlist.cfg
 	truecombat/tc.ico
 	EOF
+
+	<<-NOT_NECESSARY
+	truecombat/5th*Readmes/5th.zip
+	NOT_NECESSARY
 }
 
 get_truecombat_patch_12_zip_filename_list () {
 	cat <<-EOF
-	help/truecombat_indochine*mapinfo.txt
 	pak3.pk3
-	server.cfg
 	EOF
+
+	<<-NOT_NECESSARY
+	truecombat/1.0a?readme.txt
+	truecombat/1.1?readme.txt
+	help/truecombat_indochine*mapinfo.txt
+	server.cfg
+	NOT_NECESSARY
 }
 
 get_truecombat_patch_13_zip_filename_list () {
@@ -374,21 +392,18 @@ get_truecombat_patch_13_zip_filename_list () {
 	tceula*1.3.rtf
 	TrueCombat*1.3*Readme.txt
 	pak5.pk3
-	website.url
 	EOF
+
+	<<-NOT_NECESSARY
+	website.url
+	NOT_NECESSARY
 }
 
 get_q3tc045_full_zip_filename_list () {
 	cat <<-EOF
-	q3tc045/Build8.txt
-	q3tc045/Build9.txt
-	q3tc045/Build10.txt
-	q3tc045/build11.txt
 	q3tc045/Build12.txt
 	q3tc045/description.txt
-	q3tc045/games.log
 	q3tc045/Icon_045.ico
-	q3tc045/MODELS/q3t_players/BOSSMAN/BOSSMAN.TXT
 	q3tc045/pak0.PK3
 	q3tc045/pak1.pk3
 	q3tc045/pak2.pk3
@@ -396,11 +411,18 @@ get_q3tc045_full_zip_filename_list () {
 	q3tc045/pak4.pk3
 	q3tc045/pak5.pk3
 	q3tc045/pak6.pk3
-	q3tc045/q3config.cfg
 	q3tc045/q3tc_server.cfg
 	q3tc045/README.TXT
 	q3tc045/TCDED.PL
 	EOF
+
+	<<-NOT_NECESSARY
+	q3tc045/Build8.txt
+	q3tc045/Build9.txt
+	q3tc045/Build10.txt
+	q3tc045/build11.txt
+	q3tc045/MODELS/q3t_players/BOSSMAN/BOSSMAN.TXT
+	NOT_NECESSARY
 }
 
 
