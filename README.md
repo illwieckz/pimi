@@ -101,6 +101,8 @@ To install all mods inside system directories:
 Warning
 -------
 
+PIMI uses `wget` to download stuff.
+
 TrueCombat:Elite and TrueCombat:Close Quarters Battle mods run on 32bit i386 platform only.
 
 TrueCombat:Elite is distributed as a bzip2 tarball inside a gzip tarball embeddeded in a gzipped shell script plus a zip patch archive.
