@@ -23,6 +23,8 @@ Supported ioquake3 mods:
 
 Additionnal Mac OS X and Windows binaries and libraries are not extracted from official packages to provide a clean GNU/Linux installation.
 
+PIMI uses `wget` to download stuff, `tar` (with gzip and bzip2 support), `gzip` and `7zip` binaries to extract archives.
+
 Help
 ----
 
@@ -100,8 +102,6 @@ To install all mods inside system directories:
 
 Warning
 -------
-
-PIMI uses `wget` to download stuff.
 
 TrueCombat:Elite and TrueCombat:Close Quarters Battle mods run on 32bit i386 platform only.
 
