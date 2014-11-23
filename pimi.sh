@@ -197,6 +197,9 @@ get_etmain_downloadable_filename_list () {
 
 get_etmain_temporary_filename_list () {
 	get_etmain_downloadable_filename_list
+	cat <<-EOF
+	${etmain_full_tar_gz_filename}
+	EOF
 }
 
 get_cqbtest_downloadable_filename_list () {
@@ -249,6 +252,7 @@ get_q3tc045_temporary_filename_list () {
 }
 
 get_temporary_filename_list () {
+	get_etmain_temporary_filename_list
 	get_cqbtest_temporary_filename_list
 	get_tcetest_temporary_filename_list
 	get_truecombat_temporary_filename_list
