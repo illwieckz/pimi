@@ -673,6 +673,18 @@ download_tcetest_full_run_gz () {
 	fi
 }
 
+workaround_tcetest_download_is_full_run () {
+	if verify "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_full_run_sum}" "${tcetest_name} installer"
+	then
+		echo "Using ${tcetest_full_run_gz_filename} as ${tcetest_full_run_filename}"
+		tcetest_full_run_filepath="${tcetest_full_run_gz_filepath}"
+		true
+	else
+		false
+	fi
+
+}
+
 extract_tcetest_full_run () {
 	echo "Extracting $(get_temporary_filepath "${tcetest_name} installer: ${tcetest_full_run_filename}")"
 	if [ -f "$(get_temporary_filepath "${tcetest_full_run_filename}")" ]
@@ -930,7 +942,7 @@ download_and_install_cqbtest () {
 
 download_tcetest () {
 	check_temporary_directory \
-	&& download_tcetest_full_run_gz \
+	&& (download_tcetest_full_run_gz || workaround_tcetest_download_is_full_run) \
 	&& download_tcetest_patch_zip
 }
 
@@ -1063,7 +1075,7 @@ parse_args () {
 	install_nothing="false"
 	assume_yes="true"
 	mod_list=""
-
+	
 	for arg in ${@}
 	do
 		case "${arg}" in
