@@ -507,7 +507,11 @@ download () {
 		fi
 	fi
 
-	if wget --quiet "${1}" -O "${2}"
+	if type -P wget && wget --quiet "${1}" -O "${2}"
+	then
+		echo "Done"
+		true
+	elif type -P curl && curl -s "${1}" -o "${2}"
 	then
 		echo "Done"
 		true
@@ -992,9 +996,9 @@ print_help () {
 	tab="$(printf '\t')"
 	cat <<-EOF
 	Usage: ${0} [OPTION]... MOD NAME [MOD NAME]...
-	
+
 	${0} is a tool to install popular mods for ${etlegacy_engine_name} and ${ioquake3_engine_name} engines.
-	
+
 	Without OPTION:
 	- installs mods in ${etlegacy_name} and ${quake3arena_name} user directories.
 	- downloads temporary files to “${default_temporary_directory}” directory.
@@ -1075,7 +1079,7 @@ parse_args () {
 	install_nothing="false"
 	assume_yes="true"
 	mod_list=""
-	
+
 	for arg in ${@}
 	do
 		case "${arg}" in
