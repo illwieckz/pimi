@@ -507,17 +507,28 @@ download () {
 		fi
 	fi
 
-	if type -P wget && wget --quiet "${1}" -O "${2}"
+	if wget --help 2>/dev/null >/dev/null
 	then
-		echo "Done"
-		true
-	elif type -P curl && curl -s "${1}" -o "${2}"
+		if wget --quiet "${1}" -O "${2}"
+		then
+			echo "Done"
+			true
+		else
+			echo "Failure"
+			false
+		fi
+	elif curl --help 2>/dev/null >/dev/null
 	then
-		echo "Done"
-		true
+		if curl --silent "${1}" -o "${2}"
+		then
+			echo "Done"
+			true
+		else
+			echo "Failure"
+			false
+		fi
 	else
-		echo "Failure"
-		false
+		echo "Error, curl or wget missing"
 	fi
 }
 
