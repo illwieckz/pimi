@@ -54,6 +54,7 @@ constants () {
 	etmain_full_zip_url="http://filebase.trackbase.net/et/full/et260b.x86_full.zip"
 	etmain_full_zip_filename="et260b.x86_full.zip"
 	etmain_full_zip_sum="7a9639c7a67c6c058ae1c85ca1e04e74526194a8a676eaccffa1984869251cc058f0cb79b96604ec087492003d14f7f3e96c8ebe7e527959ae47d4d25645d3e1"
+	etmain_full_zip_header_sum="0d121dc7b36b096eaa478084252ceaf11829d5aecef4cce9dec1efd1c8e9a49a1d02ae1ed614f3d5485f345c5bd9504e0b2918017f26a6962a216f59235d7c6b"
 	etmain_full_zip_size="275647724"
 	etmain_full_zip_hsize="263Mb"
 
@@ -69,24 +70,27 @@ constants () {
 	cqbtest_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
 	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
 	cqbtest_full_zip_sum="361b3e0ef8e35a5cb6550a9a8df06f85604d21f898b7c504d24119880add7b46b436f884f550930491f2a6ed071eae8b88678f61dc06e4fdb4efdd8959799aef"
+	cqbtest_full_zip_header_sum="0b85d176bed98cc0c26931b33bdb4fe4d8ee1cbcf00426988d5b63d0bf09e6a64c62b3a971178736297fe867ab26c9ea65e8d40ad04dbbe6342107b8bdf2acdd"
 	cqbtest_full_zip_size="309240933"
 	cqbtest_full_zip_hsize="295Mb"
 
 	cqbtest_patch_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1287&Itemid=17"
 	cqbtest_patch_zip_filename="cqb_alpha0223_win_linux_patch.zip"
 	cqbtest_patch_zip_sum="5fa0c927c34fbffe19a2f7b05cdd361305c7d8b1b00076281e19087716c26e938d4d1e27bea25ba9d74f075ca6ea1766269a4b71f6f7db4764b43d4619804c91"
+	cqbtest_patch_header_sum="053d486b214c8ad9240f8e91b8f76a5800e87fd7f88f9a5aa188c94c57f2c81875a0efdba4fc9033de2b08bc1c5ac9cef9eff56e8cbe22b9569636a17581e711"
 	cqbtest_patch_zip_size="10680693"
 	cqbtest_patch_zip_hsize="11Mb"
 
-	tcetest_full_run_gz_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
+	tcetest_full_run_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
+	tcetest_full_run_filename="TrueCombatElite_v049_Linux.run"
+	tcetest_full_run_sum="e3a0c0d4c65bed324b3f2f89ca77a51a162610a59333e58c621f651e42c97e7a180d04fe7f708530d97379d83d7a67f660c668ea3d93f7536fa390d91e9b49f4"
+	tcetest_full_run_header_sum="ea27895ad4cfbb3743b8ba726b966f0330cec5465f4da4b85e29152bdb8169ea159300ab77da2874af2f8948ec695364b538fd85de73a35cb468dc4229944f11"
+	tcetest_full_run_size="475304070"
+	tcetest_full_run_hsize="453Mb"
+
 	tcetest_full_run_gz_filename="TrueCombatElite_v049_Linux.run.gz"
 	tcetest_full_run_gz_sum="95df41b591db28dc4da33375428d9394651f73a3fa7c93f7d6738c3aadb05d42bac1bb0de93ab05cc5954f4338f3026e97b71bca44ca94cafa5cc139a546a336"
 	tcetest_full_run_gz_size="475370745"
-	tcetest_full_run_gz_hsize="453Mb"
-
-	tcetest_full_run_filename="TrueCombatElite_v049_Linux.run"
-	tcetest_full_run_sum="e3a0c0d4c65bed324b3f2f89ca77a51a162610a59333e58c621f651e42c97e7a180d04fe7f708530d97379d83d7a67f660c668ea3d93f7536fa390d91e9b49f4"
-	tcetest_full_run_size="475304070"
 
 	tcetest_full_tar_gz_filename="TrueCombatElite_v049_Linux.tar.gz"
 	tcetest_full_tar_gz_sum="54233ee01a56e20cc1eeefd90b58ec40bb117f78011b2ac3b63a2b7cdcc2753223f2c343657dfe83585b6355c1bd9e68463580751bc5645ea157989240b51c3d"
@@ -100,30 +104,35 @@ constants () {
 	tcetest_patch_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=2&Itemid=17"
 	tcetest_patch_zip_filename="tce049b_all_os_fixed.zip"
 	tcetest_patch_zip_sum="8814f193437551c29edf88087229ee813317df10e264c3a0200942ef7c1e876aacff4d985d28bd59d1b3bd9589c86ad034d59a8f434cb443a31e07db9b0562da"
+	tcetest_patch_zip_header_sum="578bd4462b36087b32f257d283c1d34e9aedd71d834c6365189604f074fb51c7cee8bcf87b6f8bc929826a72a3ed5395ed99fffad3a78ac738074a9e3d239e4d"
 	tcetest_patch_zip_size="6795533"
 	tcetest_patch_zip_hsize="6.5Mb"
 
 	truecombat_full_11_zip_url="http://tce.merlin1991.at/tc/TrueCombat11Full.zip"
 	truecombat_full_11_zip_filename="TrueCombat11Full.zip"
 	truecombat_full_11_zip_sum="a4b36cd444d7de277ee6be5e3af038bb4aa583a2ce4b4a554c19ac46af628dbe045b77c3474e1a29736bb0624b62ff776c48202207b8d86daafad514971a5392"
+	truecombat_full_11_zip_header_sum="831855d4a42fb3718fe8f5ebd16b19835a4d83db4bcf00a0328c402e724f3b123a2289944e60a80983539620d92e402f645d36fb76e266dca7dcbaacd8d6195c"
 	truecombat_full_11_zip_size="147175482"
 	truecombat_full_11_zip_hsize="141Mb"
 
 	truecombat_patch_12_zip_url="http://tce.merlin1991.at/tc/tc1.2_patch.zip"
 	truecombat_patch_12_zip_filename="tc1.2_patch.zip"
 	truecombat_patch_12_zip_sum="5f6f147e9fb24bd0fff5f516a7a492c63ad853eb3bd3a76d17ec4496f7e6a6e8463e07ce53031455f6dce73bc14af647e6673a7b19391e179723a6f253316fcc"
+	truecombat_patch_12_zip_header_sum="111c7d590fc88f452e7c5a1b30dc9528c1ad14b455dfdbaf325b0311452316b380410bef84d6d98877eb10d91863a0aab5277058191a01c9c4236e2f5f8a2ad0"
 	truecombat_patch_12_zip_size="99781509"
 	truecombat_patch_12_zip_hsize="96Mb"
 
 	truecombat_patch_13_zip_url="http://tce.merlin1991.at/tc/tc1.3_patch.zip"
 	truecombat_patch_13_zip_filename="tc1.3_patch.zip"
 	truecombat_patch_13_zip_sum="a828de3f99d62b1b2e6cfe4542a4bf651ce360f4b130bffb1607c5bf67dad0fa506ba2ff5ffc5cf3ab896f1ae16b4eca74f886192ff81b2d4c4461ffea61aeb3"
+	truecombat_patch_13_zip_header_sum="1afc0a745c6e0fc57d5bf3c7bebe3a44bcf80267a5d70fb66ff60b62967ba5f9dff020bbfad89f232ca13249afef03cbd7fee13c0f6307e63a137f5f2a6b2dab"
 	truecombat_patch_13_zip_size="58386008"
 	truecombat_patch_13_zip_hsize="56Mb"
 
 	q3tc045_full_zip_url="http://tce.merlin1991.at/tc/q3tc0.45b12beta.zip"
 	q3tc045_full_zip_filename="q3tc0.45b12beta.zip"
 	q3tc045_full_zip_sum="13be817b709e89d86540c2b307bc5f71e210370dd1a1e26736409b0d6d6665a65c3ce1d41f63cf3c37c35779de3b923db361df03c3ba13a17cfdec5af2524eb6"
+	q3tc045_full_zip_header_sum="f0d7f137fff168b32196de6ca4227338de0f2cd3c9778f3c76f3737dbc32647dbca9f3b0c4ff1aa550c95b757c460f8edf83deef6c1ca6380a9841363d36726f"
 	q3tc045_full_zip_size="93394211"
 	q3tc045_full_zip_hsize="90Mb"
 }
@@ -215,7 +224,7 @@ get_cqbtest_temporary_filename_list () {
 
 get_tcetest_downloadable_filename_list () {
 	cat <<-EOF
-	${tcetest_full_run_gz_filename}
+	${tcetest_full_run_filename}
 	${tcetest_patch_zip_filename}
 	EOF
 }
@@ -490,46 +499,89 @@ verify () {
 	fi
 }
 
+verify_header () {
+	# $1: path
+	# $2: header_sum
+	# $3: description
+	echo "Verifying ${3}: ${1}"
+	if [ "$(dd if="${1}" status=none bs=128b count=1 | sha512sum | cut -f1 -d' ')" = "${2}" ]
+	then
+		echo "Success"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
 download () {
 	# $1: url
 	# $2: path
-	# $3: description
-	echo "Downloading ${3}: ${2}"
+	# $3: sum
+	# $4: header_sum
+	# $5: description
+	echo "Downloading ${5}: ${2}"
+
+	_WGET="${WGET}"
+	_CURL="${CURL}"
+
 	if [ -f "${2}" ]
 	then
-		if [ "x${force_redownload}" != "xtrue" ]
+		if [ "x${force_redownload}" = "xtrue" ]
 		then
-			echo "Already there"
-			true
-			return
-		else
 			echo "Already there, but redownloading"
+			rm "${2}"
+		else
+			if verify_header "${2}" "${4}" "" >/dev/null
+			then
+				if verify "${2}" "${3}" "" >/dev/null
+				then
+					echo "Already there"
+					return
+				else
+					echo "Incomplete file, will continue"
+					_WGET="${WGET} --continue"
+					_CURL="${CURL} --continue-at -"
+				fi
+			else
+				echo "Corrupted file, will redownload"
+				rm "${2}"
+			fi
 		fi
 	fi
 
 	if wget --help 2>/dev/null >/dev/null
 	then
-		if ${WGET} "${1}" -O "${2}"
+		if ${_WGET} "${1}" --output-document "${2}"
 		then
 			echo "Done"
 			true
 		else
 			echo "Failure"
 			false
+			return
 		fi
 	elif curl --help 2>/dev/null >/dev/null
 	then
-		if ${CURL} "${1}" --output "${2}"
+		if ${_CURL} "${1}" --output "${2}"
 		then
 			echo "Done"
 			true
 		else
 			echo "Failure"
 			false
+			return
 		fi
 	else
 		echo "Error, curl or wget missing"
 	fi
+
+	if [ "x${2}" = "${tcetest_full_run_sum}" ]
+	then
+		workaround_tcetest_download_is_gzipped
+	fi
+
+	verify "${2}" "${3}" "${5}"
 }
 
 check_temporary_directory () {
@@ -556,7 +608,9 @@ check_etmain_directory () {
 }
 
 download_etmain_full_zip () {
-	if download "${etmain_full_zip_url}" "$(get_temporary_filepath "${etmain_full_zip_filename}")" "${etmain_name} installer archive (${etmain_full_zip_hsize})"
+	if download "${etmain_full_zip_url}" "$(get_temporary_filepath "${etmain_full_zip_filename}")" \
+		"${etmain_full_zip_sum}" "${etmain_full_zip_header_sum}" \
+		"${etmain_name} installer archive (${etmain_full_zip_hsize})"
 	then
 		verify "$(get_temporary_filepath "${etmain_full_zip_filename}")" "${etmain_full_zip_sum}" "${etmain_name} installer archive"
 	fi
@@ -636,7 +690,9 @@ check_cqbtest_directory () {
 }
 
 download_cqbtest_full_zip () {
-	if download "${cqbtest_full_zip_url}" "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" "${cqbtest_name} zip archive (${cqbtest_full_zip_hsize})"
+	if download "${cqbtest_full_zip_url}" "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" \
+		"${cqbtest_full_zip_sum}" "${cqbtest_full_zip_header_sum}" \
+		"${cqbtest_name} zip archive (${cqbtest_full_zip_hsize})"
 	then
 		verify "$(get_temporary_filepath "${cqbtest_full_zip_filename}")" "${cqbtest_full_zip_sum}" "${cqbtest_name} zip archive"
 	fi
@@ -655,10 +711,9 @@ extract_cqbtest_full_files () {
 }
 
 download_cqbtest_patch_zip () {
-	if download "${cqbtest_patch_zip_url}" "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" "${cqbtest_name} zip archive (${cqbtest_patch_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" "${cqbtest_patch_zip_sum}" "${cqbtest_name} zip archive"
-	fi
+	download "${cqbtest_patch_zip_url}" "$(get_temporary_filepath "${cqbtest_patch_zip_filename}")" \
+		"${cqbtest_patch_zip_sum}" "${cqbtest_patch_zip_header_sum}" \
+		"${cqbtest_name} zip archive (${cqbtest_patch_zip_hsize})"
 }
 
 extract_cqbtest_patch_files () {
@@ -681,27 +736,23 @@ check_tcetest_directory () {
 	check_directory "$(get_tcetest_directory)" "${tcetest_name}"
 }
 
-download_tcetest_full_run_gz () {
-	if download "${tcetest_full_run_gz_url}" "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_name} installer archive (${tcetest_full_run_gz_hsize})"
+download_tcetest_full_run () {
+	download "${tcetest_full_run_url}" "$(get_temporary_filepath "${tcetest_full_run_filename}")" \
+		"${tcetest_full_run_sum}" "${tcetest_full_run_header_sum}" \
+		"${tcetest_name} installer archive (${tcetest_full_run_hsize})"
+}
+
+workaround_tcetest_download_is_gzipped () {
+	if verify "$(get_temporary_filepath "${tcetest_full_run_filename}")" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer"
 	then
-		verify "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer archive"
+		echo "Warning: “${tcetest_full_run_filename}” is gzipped, will workaround that"
+		mv "${tcetest_full_run_filename}" "${tcetest_full_run_filename}.gz"
+		extract_tcetest_full_run_gz
 	fi
 }
 
-workaround_tcetest_download_is_full_run () {
-	if verify "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" "${tcetest_full_run_sum}" "${tcetest_name} installer"
-	then
-		echo "Using ${tcetest_full_run_gz_filename} as ${tcetest_full_run_filename}"
-		tcetest_full_run_filepath="${tcetest_full_run_gz_filepath}"
-		true
-	else
-		false
-	fi
-
-}
-
-extract_tcetest_full_run () {
-	echo "Extracting $(get_temporary_filepath "${tcetest_name} installer: ${tcetest_full_run_filename}")"
+extract_tcetest_full_run_gz () {
+	echo "Extracting $(get_temporary_filepath "${tcetest_name} installer: ${tcetest_full_run_gz_filename}")"
 	if [ -f "$(get_temporary_filepath "${tcetest_full_run_filename}")" ]
 	then
 		echo "Already there"
@@ -773,10 +824,9 @@ extract_tcetest_full_files () {
 }
 
 download_tcetest_patch_zip () {
-	if download "${tcetest_patch_zip_url}" "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" "${tcetest_name} patch file (${tcetest_patch_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" "${tcetest_patch_zip_sum}" "${tcetest_name} patch file"
-	fi
+	download "${tcetest_patch_zip_url}" "$(get_temporary_filepath "${tcetest_patch_zip_filename}")" \
+		"${tcetest_patch_zip_sum}" "${tcetest_patch_zip_header_sum}" \
+		"${tcetest_name} patch file (${tcetest_patch_zip_hsize})"
 }
 
 extract_tcetest_patch_files () {
@@ -800,10 +850,9 @@ check_truecombat_directory () {
 }
 
 download_truecombat_full_11_zip () {
-	if download "${truecombat_full_11_zip_url}" "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" "${truecombat_name} patch file (${truecombat_full_11_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" "${truecombat_full_11_zip_sum}" "${truecombat_name} patch file"
-	fi
+	download "${truecombat_full_11_zip_url}" "$(get_temporary_filepath "${truecombat_full_11_zip_filename}")" \
+		"${truecombat_full_11_zip_sum}" "${truecombat_full_11_zip_header_sum}" \
+		"${truecombat_name} patch file (${truecombat_full_11_zip_hsize})"
 }
 
 extract_truecombat_full_11_files () {
@@ -819,10 +868,9 @@ extract_truecombat_full_11_files () {
 }
 
 download_truecombat_patch_12_zip () {
-	if download "${truecombat_patch_12_zip_url}" "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" "${truecombat_name} patch file (${truecombat_patch_12_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" "${truecombat_patch_12_zip_sum}" "${truecombat_name} patch file"
-	fi
+	download "${truecombat_patch_12_zip_url}" "$(get_temporary_filepath "${truecombat_patch_12_zip_filename}")" \
+		"${truecombat_patch_12_zip_sum}" "${truecombat_patch_12_zip_header_sum}" \
+		"${truecombat_name} patch file (${truecombat_patch_12_zip_hsize})"
 }
 
 extract_truecombat_patch_12_files () {
@@ -838,10 +886,9 @@ extract_truecombat_patch_12_files () {
 }
 
 download_truecombat_patch_13_zip () {
-	if download "${truecombat_patch_13_zip_url}" "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" "${truecombat_name} patch file (${truecombat_patch_13_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" "${truecombat_patch_13_zip_sum}" "${truecombat_name} patch file"
-	fi
+	download "${truecombat_patch_13_zip_url}" "$(get_temporary_filepath "${truecombat_patch_13_zip_filename}")" \
+		"${truecombat_patch_13_zip_sum}" "${truecombat_patch_13_zip_header_sum}" \
+		"${truecombat_name} patch file (${truecombat_patch_13_zip_hsize})"
 }
 
 extract_truecombat_patch_13_files () {
@@ -865,10 +912,9 @@ check_q3tc045_directory () {
 }
 
 download_q3tc045_full_zip () {
-	if download "${q3tc045_full_zip_url}" "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" "${q3tc045_name} patch file (${q3tc045_full_zip_hsize})"
-	then
-		verify "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" "${q3tc045_full_zip_sum}" "${q3tc045_name} patch file"
-	fi
+	download "${q3tc045_full_zip_url}" "$(get_temporary_filepath "${q3tc045_full_zip_filename}")" \
+		"${q3tc045_full_zip_sum}" "${q3tc045_full_zip_header_sum}" \
+		"${q3tc045_name} patch file (${q3tc045_full_zip_hsize})"
 }
 
 extract_q3tc045_full_files () {
@@ -957,7 +1003,7 @@ download_and_install_cqbtest () {
 
 download_tcetest () {
 	check_temporary_directory \
-	&& (download_tcetest_full_run_gz || workaround_tcetest_download_is_full_run) \
+	&& download_tcetest_full_run \
 	&& download_tcetest_patch_zip
 }
 
