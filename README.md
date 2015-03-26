@@ -56,6 +56,8 @@ OPTIONS
 
 	-y, --yes
 	    assume yes, do not ask before doing something
+	-v,  --verbose
+		    print download progression information
 	-f,  --force-redownload
 	    force to download again already downloaded files
 	-p,  --purge-after

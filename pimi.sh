@@ -509,7 +509,7 @@ download () {
 
 	if wget --help 2>/dev/null >/dev/null
 	then
-		if wget --quiet "${1}" -O "${2}"
+		if ${WGET} "${1}" -O "${2}"
 		then
 			echo "Done"
 			true
@@ -519,7 +519,7 @@ download () {
 		fi
 	elif curl --help 2>/dev/null >/dev/null
 	then
-		if curl --silent "${1}" -o "${2}"
+		if ${CURL} "${1}" --output "${2}"
 		then
 			echo "Done"
 			true
@@ -1029,6 +1029,8 @@ print_help () {
 
 	${tab}-y, --yes
 	${tab}    assume yes, do not ask before doing something
+	${tab}-v,  --verbose
+	${tab}    print download progression information
 	${tab}-f,  --force-redownload
 	${tab}    force to download again already downloaded files
 	${tab}-p,  --purge-after
@@ -1089,6 +1091,7 @@ parse_args () {
 	download_only="false"
 	install_nothing="false"
 	assume_yes="true"
+	is_verbose="false"
 	mod_list=""
 
 	for arg in ${@}
@@ -1136,6 +1139,9 @@ parse_args () {
 			--download-only|-dl)
 				download_only="true"
 				;;
+			--verbose|-v)
+				is_verbose="true"
+				;;
 			--yes|-y)
 				assume_yes="false"
 				;;
@@ -1161,6 +1167,15 @@ parse_args () {
 		mod_list="nothing"
 	fi
 
+	if [ "x${is_verbose}" = "xtrue" ]
+	then
+		WGET="wget"
+		CURL="curl"
+	else
+		WGET="wget --quiet"
+		CURL="curl --silent"
+	fi
+
 	mod_list="$(echo "${mod_list}" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')"
 }
 
@@ -1184,6 +1199,11 @@ print_configuration () {
 				echo "  Will install ${mod_name} as $("get_${mod_name}_directory")"
 			fi
 		done
+	fi
+
+	if [ "x${is_verbose}" = "xtrue" ]
+	then
+		echo "Will download verbosely"
 	fi
 
 	if [ "x${purge_after}" = "xfalse" ]
