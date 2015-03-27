@@ -17,7 +17,7 @@ Supported ET:Legacy mods:
 * **Wolfenstein: Enemy Territory 2.60 patch b**
 * **TrueCombat:Close Quarters Battle alpha 0.22 patch 3**
 * **TrueCombat:Elite beta 0.4 build 9 patch b**
-* **ETNam 0.1.0**
+* **ETNam 0.1.1**
 
 Supported ioquake3 mods:
 
@@ -70,7 +70,7 @@ MOD NAMES
 	etmain
 	    Wolfenstein: Enemy Territory 2.60 patch b for ET:Legacy
 	etnam
-		    ETNam 0.1.0 for ET:Legacy
+		ETNam 0.1.1 for ET:Legacy
 	cqb, cqbtest
 	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for ET:Legacy
 	tce, tcetest

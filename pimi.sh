@@ -26,8 +26,8 @@ constants () {
 
 	etnam_name="ETNam"
 	etnam_mod_name="etnam"
-	etnam_version="0.1.0"
-	etnam_date="2011-01-01"
+	etnam_version="0.1.1"
+	etnam_date="2011-01-22"
 
 	cqbtest_name="TrueCombat:Close Quarters Battle"
 	cqbtest_mod_name="cqbtest"
@@ -78,6 +78,13 @@ constants () {
 	etnam_full_zip_header_sum="ba91d6d94ab07a3151a2097d0be2cd7f3c322c7a43f7a35a0c691c9d324015556956d96e7e2c843782cc9f51769d108176f1b45ce6738f340879cb4c39e82503"
 	etnam_full_zip_size="28218488"
 	etnam_full_zip_hsize="27Mb"
+
+	etnam_patch_zip_filename="ETNam-Patch_0.1.1.zip"
+	etnam_patch_zip_url="http://wolffiles.de/filebase/ET/Mods/ETNam-Patch_0.1.1.zip"
+	etnam_patch_zip_sum="8734f3805179e39b4799bbad9ffda8cb3b71730dd467eec4dc517553fc1b86fa99bf30dcda28a0e70ba5a1bc8015e60981303cec9d220cbda162e99c110497b8"
+	etnam_patch_zip_header_sum="45efc9a5827654059061a69eb075941244d3a79ec3ccf0a2b83da51a811ea3c5d9715b5157d7ec8664728b50beedf3a72b063f8f3179330b90d122669bede9f2"
+	etnam_patch_zip_size="4436472"
+	etnam_patch_zip_hsize="4.3Mb"
 
 	cqbtest_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
 	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
@@ -238,6 +245,7 @@ get_etmain_temporary_filename_list () {
 get_etnam_downloadable_filename_list () {
 	cat <<-EOF
 	${etnam_full_zip_filename}
+	${etnam_patch_zip_filename}
 	EOF
 }
 
@@ -372,6 +380,19 @@ get_etnam_full_filename_list () {
 	NOT_NECESSARY
 }
 
+get_etnam_patch_filename_list () {
+	cat <<-EOF
+	ChangeLog?-?0.1.1?-.txt
+	Wolfenstein?-?Enemy?Territory/etnam/qagame.mp.i386.so
+	Wolfenstein?-?Enemy?Territory/etnam/server_spree.cfg
+	Wolfenstein?-?Enemy?Territory/etnam/server_forcecvar.cfg
+	Wolfenstein?-?Enemy?Territory/etnam/z_mp_bin_0.1.1.pk3
+	EOF
+
+	<<-NOT_NECESSARY
+	Wolfenstein - Enemy Territory/etnam/qagame_mp_x86.dll
+	NOT_NECESSARY
+}
 
 get_etnam_full_omnibot_filename_list () {
 	cat<<-EOF
@@ -836,6 +857,49 @@ extract_etnam_full_omnibot_files () {
 	fi
 }
 
+download_etnam_patch_zip () {
+	download "${etnam_patch_zip_url}" "$(get_temporary_filepath "${etnam_patch_zip_filename}")" \
+		"${etnam_patch_zip_sum}" "${etnam_patch_zip_header_sum}" \
+		"${etnam_name} installer archive (${etnam_patch_zip_hsize})"
+}
+
+extract_etnam_patch_files () {
+	echo "Extracting ${etnam_name} archive files"
+	work_dir="$(get_temporary_filepath "work_dir/etnam")"
+	mkdir -p "${work_dir}"
+	if 7z e -y -o"${work_dir}" "$(get_temporary_filepath "${etnam_patch_zip_filename}")" $(get_etnam_patch_filename_list) >/dev/null
+	then
+		get_etnam_patch_filename_list | while read source_file_path
+		do
+			source_file_path="$(basename ${source_file_path})"
+			target_dir_path="$(get_etnam_directory)"
+			mkdir -p "${target_dir_path}"
+
+			if [ "x${source_file_path}" = "xChangeLog?-?0.1.1?-.txt" ]
+			then
+				target_dir_path="${target_dir_path}/docs"
+				mkdir -p "${target_dir_path}"
+			fi
+
+			if ! mv "${work_dir}/"${source_file_path} "${target_dir_path}"
+			then
+				echo Failure
+				false
+				return
+			else
+				(cd "$(get_temporary_filepath ".")"; rmdir --parents --ignore-fail-on-non-empty "work_dir/etnam")
+			fi
+		done
+
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
+
 ## Close Quarters Battle stuff
 ##############################
 
@@ -899,14 +963,14 @@ download_tcetest_full_run () {
 workaround_tcetest_download_is_gzipped () {
 	if verify "$(get_temporary_filepath "${tcetest_full_run_filename}")" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer"
 	then
-		echo "Warning: “${tcetest_full_run_filename}” is gzipped, will workaround that"
+		echo "Warning: ${tcetest_full_run_filename} is gzipped, will workaround that"
 		mv "${tcetest_full_run_filename}" "${tcetest_full_run_filename}.gz"
 		extract_tcetest_full_run_gz
 	fi
 }
 
 extract_tcetest_full_run_gz () {
-	echo "Extracting $(get_temporary_filepath "${tcetest_name} installer: ${tcetest_full_run_gz_filename}")"
+	echo "Extracting ${tcetest_name} installer: ${tcetest_full_run_gz_filename}"
 	if [ -f "$(get_temporary_filepath "${tcetest_full_run_filename}")" ]
 	then
 		echo "Already there"
@@ -1143,7 +1207,8 @@ download_and_install_etmain () {
 
 download_etnam () {
 	check_temporary_directory \
-	&& download_etnam_full_zip
+	&& download_etnam_full_zip \
+	&& download_etnam_patch_zip
 }
 
 download_and_install_etnam () {
@@ -1151,7 +1216,8 @@ download_and_install_etnam () {
 	&& check_etnam_directory \
 	&& download_etnam \
 	&& extract_etnam_full_files \
-	&& extract_etnam_full_omnibot_files
+	&& extract_etnam_full_omnibot_files \
+	&& extract_etnam_patch_files
 }
 
 download_cqbtest () {
