@@ -17,6 +17,7 @@ Supported ET:Legacy mods:
 * **Wolfenstein: Enemy Territory 2.60 patch b**
 * **TrueCombat:Close Quarters Battle alpha 0.22 patch 3**
 * **TrueCombat:Elite beta 0.4 build 9 patch b**
+* **ETNam 0.1.0**
 
 Supported ioquake3 mods:
 
@@ -68,6 +69,8 @@ OPTIONS
 MOD NAMES
 	etmain
 	    Wolfenstein: Enemy Territory 2.60 patch b for ET:Legacy
+	etnam
+		    ETNam 0.1.0 for ET:Legacy
 	cqb, cqbtest
 	    TrueCombat:Close Quarters Battle alpha 0.22 patch 3 for ET:Legacy
 	tce, tcetest
@@ -78,7 +81,7 @@ MOD NAMES
 	    TrueCombat beta 0.45 build 12 for ioquake3
 
 	all
-	    an alias for “etmain cqbtest tcetest truecombat q3tc045”
+	    an alias for “etmain etnam cqbtest tcetest truecombat q3tc045”
 
 	nothing
 	    nothing

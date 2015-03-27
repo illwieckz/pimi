@@ -24,6 +24,11 @@ constants () {
 	etmain_version="2.60 patch b"
 	etmain_date="2006-05-08"
 
+	etnam_name="ETNam"
+	etnam_mod_name="etnam"
+	etnam_version="0.1.0"
+	etnam_date="2011-01-01"
+
 	cqbtest_name="TrueCombat:Close Quarters Battle"
 	cqbtest_mod_name="cqbtest"
 	cqbtest_version="alpha 0.22 patch 3"
@@ -66,6 +71,13 @@ constants () {
 	etmain_full_tar_gz_sum="7342079ae1c0a94a06011e487fb3f22d95dca5709e47e399ae671e7e79d16989cc1267b643ed49a5a487e8970284dd5bdf57787680bcca4c4aa076d2aa4fe459"
 	etmain_full_tar_gz_size="275635039"
 	etmain_full_tar_gz_offset="9455"
+
+	etnam_full_zip_filename="etnam_0_1_0.zip"
+	etnam_full_zip_url="http://wolffiles.de/filebase/ET/Mods/etnam_0_1_0.zip"
+	etnam_full_zip_sum="94bf585158d85805e890d61e94b538660eb39ce537c3706d1beae4280358785742968f67702f23f62898cda2d03a6fd30ae7854692e7f096662913ee79d25f24"
+	etnam_full_zip_header_sum="ba91d6d94ab07a3151a2097d0be2cd7f3c322c7a43f7a35a0c691c9d324015556956d96e7e2c843782cc9f51769d108176f1b45ce6738f340879cb4c39e82503"
+	etnam_full_zip_size="28218488"
+	etnam_full_zip_hsize="27Mb"
 
 	cqbtest_full_zip_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=1285&Itemid=17"
 	cqbtest_full_zip_filename="cqb_alpha022_win_linux.zip"
@@ -141,6 +153,10 @@ get_etmain_description () {
 	echo "${etmain_name} ${etmain_version}"
 }
 
+get_etnam_description () {
+	echo "${etnam_name} ${etnam_version}"
+}
+
 get_cqbtest_description () {
 	echo "${cqbtest_name} ${cqbtest_version}"
 }
@@ -161,6 +177,10 @@ get_etmain_full_description () {
 	echo "$(get_etmain_description) for ${etlegacy_engine_name}"
 }
 
+get_etnam_full_description () {
+	echo "$(get_etnam_description) for ${etlegacy_engine_name}"
+}
+
 get_cqbtest_full_description () {
 	echo "$(get_cqbtest_description) for ${etlegacy_engine_name}"
 }
@@ -179,6 +199,10 @@ get_q3tc045_full_description () {
 
 get_etmain_directory () {
 	echo "${etlegacy_directory}/${etmain_mod_name}"
+}
+
+get_etnam_directory () {
+	echo "${etlegacy_directory}/${etnam_mod_name}"
 }
 
 get_cqbtest_directory () {
@@ -209,6 +233,16 @@ get_etmain_temporary_filename_list () {
 	cat <<-EOF
 	${etmain_full_tar_gz_filename}
 	EOF
+}
+
+get_etnam_downloadable_filename_list () {
+	cat <<-EOF
+	${etnam_full_zip_filename}
+	EOF
+}
+
+get_etnam_temporary_filename_list () {
+	get_etnam_downloadable_filename_list
 }
 
 get_cqbtest_downloadable_filename_list () {
@@ -262,6 +296,7 @@ get_q3tc045_temporary_filename_list () {
 
 get_temporary_filename_list () {
 	get_etmain_temporary_filename_list
+	get_etnam_temporary_filename_list
 	get_cqbtest_temporary_filename_list
 	get_tcetest_temporary_filename_list
 	get_truecombat_temporary_filename_list
@@ -302,6 +337,56 @@ get_etmain_full_docs_filename_list () {
 	./Docs/MSR.rtf
 	./Docs/Help/
 	NOT_NECESSARY
+}
+
+get_etnam_full_filename_list () {
+	cat <<-EOF
+	etnam_010/etnam/z_mp_etnam_0.1.0.pk3
+	etnam_010/etnam/qagame.mp.i386.so
+	etnam_010/etnam/server_damage.cfg
+	etnam_010/etnam/z_mp_bin_0.1.0.pk3
+	etnam_010/etnam/server_spree.cfg
+	etnam_010/etnam/mapconfigs/default.cfg
+	etnam_010/etnam/mapscripts/railgun_lms.script
+	etnam_010/etnam/mapscripts/radar.script
+	etnam_010/etnam/mapscripts/oasis.script
+	etnam_010/etnam/mapscripts/fueldump_lms.script
+	etnam_010/etnam/mapscripts/railgun.script
+	etnam_010/etnam/mapscripts/battery.script
+	etnam_010/etnam/mapscripts/goldrush.script
+	etnam_010/etnam/mapscripts/oasis_lms.script
+	etnam_010/etnam/mapscripts/fueldump.script
+	etnam_010/etnam/server.cfg
+	etnam_010/etnam/server_vote.cfg
+	etnam_010/etnam/server_admin.cfg
+	etnam_010/etnam/map_campaign.cfg
+	etnam_010/etnam/map_voting.cfg
+	etnam_010/etnam/docs/EULA.pdf
+	etnam_010/etnam/docs/ETNAM?0.1.0.pdf
+	etnam_010/etnam/luascripts/FAQ.lua
+	EOF
+
+	<<-NOT_NECESSARY
+	etnam_010/lua_libs.zip
+	etnam_010/etnam/qagame_mp_x86.dll
+	NOT_NECESSARY
+}
+
+
+get_etnam_full_omnibot_filename_list () {
+	cat<<-EOF
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_ithaca.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_s_ak47.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_s_ak47_scoped.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_revolver.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_rpd.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_napalm.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_m3a1.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_m79.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_gps.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_law.gm
+	etnam_010/omni-bot/et/scripts/weapons/weapon_etnam_akimbo_mac10.gm
+	EOF
 }
 
 get_cqbtest_full_filename_list () {
@@ -682,6 +767,75 @@ extract_etmain_full_docs () {
 }
 
 
+## ETNam stuff
+##############
+
+check_etnam_directory () {
+	check_directory "$(get_etnam_directory)" "${etnam_name}"
+}
+
+download_etnam_full_zip () {
+	download "${etnam_full_zip_url}" "$(get_temporary_filepath "${etnam_full_zip_filename}")" \
+		"${etnam_full_zip_sum}" "${etnam_full_zip_header_sum}" \
+		"${etnam_name} installer archive (${etnam_full_zip_hsize})"
+}
+
+extract_etnam_full_files () {
+	echo "Extracting ${etnam_name} archive files"
+	work_dir="$(get_temporary_filepath "work_dir")"
+	mkdir -p "${work_dir}"
+	if 7z x -y -o"${work_dir}" "$(get_temporary_filepath "${etnam_full_zip_filename}")" $(get_etnam_full_filename_list) >/dev/null
+	then
+		get_etnam_full_filename_list | while read source_file_path
+		do
+			target_dir_path="$(dirname "$(get_etnam_directory)/$(echo "${source_file_path}" | sed -e 's#etnam_010/etnam/##')")"
+			mkdir -p "${target_dir_path}"
+			if ! mv "${work_dir}/"${source_file_path} "${target_dir_path}"
+			then
+				echo Failure
+				false
+				return
+			else
+				(cd "$(get_temporary_filepath ".")"; rmdir --parents --ignore-fail-on-non-empty "work_dir/$(dirname "${source_file_path}")")
+			fi
+		done
+
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
+extract_etnam_full_omnibot_files () {
+	echo "Extracting ${etnam_name} archive omni-bot files"
+	work_dir="$(get_temporary_filepath "work_dir")"
+	mkdir -p "${work_dir}"
+	if 7z x -y -o"${work_dir}" "$(get_temporary_filepath "${etnam_full_zip_filename}")" $(get_etnam_full_omnibot_filename_list) >/dev/null
+	then
+		get_etnam_full_omnibot_filename_list | while read source_file_path
+		do
+			target_dir_path="$(dirname "$(get_etnam_directory)/$(echo "${source_file_path}" | sed -e 's#etnam_010/##')")"
+			mkdir -p "${target_dir_path}"
+			if ! mv "${work_dir}/"${source_file_path} "${target_dir_path}"
+			then
+				echo Failure
+				false
+				return
+			else
+				(cd "$(get_temporary_filepath ".")"; rmdir --parents --ignore-fail-on-non-empty "work_dir/$(dirname "${source_file_path}")")
+			fi
+		done
+
+		echo "Done"
+		true
+	else
+		echo "Failure"
+		false
+	fi
+}
+
 ## Close Quarters Battle stuff
 ##############################
 
@@ -987,6 +1141,19 @@ download_and_install_etmain () {
 	&& extract_etmain_full_docs
 }
 
+download_etnam () {
+	check_temporary_directory \
+	&& download_etnam_full_zip
+}
+
+download_and_install_etnam () {
+	check_etlegacy_directory \
+	&& check_etnam_directory \
+	&& download_etnam \
+	&& extract_etnam_full_files \
+	&& extract_etnam_full_omnibot_files
+}
+
 download_cqbtest () {
 	check_temporary_directory \
 	&& download_cqbtest_full_zip \
@@ -1087,6 +1254,8 @@ print_help () {
 	MOD NAMES
 	${tab}etmain
 	${tab}    $(get_etmain_full_description)
+	${tab}etnam
+	${tab}    $(get_etnam_full_description)
 	${tab}cqb, cqbtest
 	${tab}    $(get_cqbtest_full_description)
 	${tab}tce, tcetest
@@ -1146,6 +1315,9 @@ parse_args () {
 			etmain|et)
 				mod_list="${mod_list} etmain"
 				;;
+			etnam)
+				mod_list="${mod_list} etnam"
+				;;
 			cqbtest|cqb)
 				mod_list="${mod_list} cqbtest"
 				;;
@@ -1159,7 +1331,7 @@ parse_args () {
 				mod_list="${mod_list} q3tc045"
 				;;
 			all)
-				mod_list="etmain cqbtest tcetest truecombat q3tc045"
+				mod_list="etmain etnam cqbtest tcetest truecombat q3tc045"
 				;;
 			nothing)
 				install_nothing="true"
