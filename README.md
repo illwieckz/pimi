@@ -26,7 +26,7 @@ Supported ioquake3 mods:
 
 Additionnal Mac OS X and Windows binaries and libraries are not extracted from official packages to provide a clean GNU/Linux installation.
 
-PIMI uses `wget` to download stuff, `tar` (with gzip and bzip2 support), `gzip` and `7zip` binaries to extract archives.
+PIMI uses `wget` or `curl` to download stuff, `tar` (with gzip and bzip2 support), `gzip` and `7zip` binaries to extract archives.
 
 Help
 ----
@@ -58,7 +58,7 @@ OPTIONS
 	-y, --yes
 	    assume yes, do not ask before doing something
 	-v,  --verbose
-		    print download progression information
+		print download progression information
 	-f,  --force-redownload
 	    force to download again already downloaded files
 	-p,  --purge-after
