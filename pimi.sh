@@ -100,17 +100,13 @@ constants () {
 	cqbtest_patch_zip_size="10680693"
 	cqbtest_patch_zip_hsize="11Mb"
 
-	tcetest_full_run_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
+	tcetest_full_run_gz_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
 	# other url, same checksum, not gzipped too (wrong ext): http://zooi.widodh.nl/games/linux/truecombatelite/TrueCombatElite_v049_Linux.run.gz
-	tcetest_full_run_filename="TrueCombatElite_v049_Linux.run"
-	tcetest_full_run_sum="e3a0c0d4c65bed324b3f2f89ca77a51a162610a59333e58c621f651e42c97e7a180d04fe7f708530d97379d83d7a67f660c668ea3d93f7536fa390d91e9b49f4"
-	tcetest_full_run_header_sum="ea27895ad4cfbb3743b8ba726b966f0330cec5465f4da4b85e29152bdb8169ea159300ab77da2874af2f8948ec695364b538fd85de73a35cb468dc4229944f11"
-	tcetest_full_run_size="475304070"
-	tcetest_full_run_hsize="453Mb"
-
 	tcetest_full_run_gz_filename="TrueCombatElite_v049_Linux.run.gz"
-	tcetest_full_run_gz_sum="95df41b591db28dc4da33375428d9394651f73a3fa7c93f7d6738c3aadb05d42bac1bb0de93ab05cc5954f4338f3026e97b71bca44ca94cafa5cc139a546a336"
-	tcetest_full_run_gz_size="475370745"
+	tcetest_full_run_gz_sum="e3a0c0d4c65bed324b3f2f89ca77a51a162610a59333e58c621f651e42c97e7a180d04fe7f708530d97379d83d7a67f660c668ea3d93f7536fa390d91e9b49f4"
+	tcetest_full_run_gz_header_sum="ea27895ad4cfbb3743b8ba726b966f0330cec5465f4da4b85e29152bdb8169ea159300ab77da2874af2f8948ec695364b538fd85de73a35cb468dc4229944f11"
+	tcetest_full_run_gz_size="475304070"
+	tcetest_full_run_gz_hsize="453Mb"
 
 	tcetest_full_tar_gz_filename="TrueCombatElite_v049_Linux.tar.gz"
 	tcetest_full_tar_gz_sum="54233ee01a56e20cc1eeefd90b58ec40bb117f78011b2ac3b63a2b7cdcc2753223f2c343657dfe83585b6355c1bd9e68463580751bc5645ea157989240b51c3d"
@@ -267,7 +263,7 @@ get_cqbtest_temporary_filename_list () {
 
 get_tcetest_downloadable_filename_list () {
 	cat <<-EOF
-	${tcetest_full_run_filename}
+	${tcetest_full_run_gz_filename}
 	${tcetest_patch_zip_filename}
 	EOF
 }
@@ -275,7 +271,7 @@ get_tcetest_downloadable_filename_list () {
 get_tcetest_temporary_filename_list () {
 	get_tcetest_downloadable_filename_list
 	cat <<-EOF
-	${tcetest_full_run_filename}
+	${tcetest_full_run_gz_filename}
 	${tcetest_full_tar_gz_filename}
 	${tcetest_full_tar_bz2_filename}
 	EOF
@@ -683,11 +679,6 @@ download () {
 		echo "Error, curl or wget missing"
 	fi
 
-	if [ "x${2}" = "${tcetest_full_run_sum}" ]
-	then
-		workaround_tcetest_download_is_gzipped
-	fi
-
 	verify "${2}" "${3}" "${5}"
 }
 
@@ -956,32 +947,23 @@ check_tcetest_directory () {
 }
 
 download_tcetest_full_run () {
-	download "${tcetest_full_run_url}" "$(get_temporary_filepath "${tcetest_full_run_filename}")" \
-		"${tcetest_full_run_sum}" "${tcetest_full_run_header_sum}" \
-		"${tcetest_name} installer archive (${tcetest_full_run_hsize})"
+	download "${tcetest_full_run_gz_url}" "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" \
+		"${tcetest_full_run_gz_sum}" "${tcetest_full_run_gz_header_sum}" \
+		"${tcetest_name} installer archive (${tcetest_full_run_gz_hsize})"
 }
 
-workaround_tcetest_download_is_gzipped () {
-	if verify "$(get_temporary_filepath "${tcetest_full_run_filename}")" "${tcetest_full_run_gz_sum}" "${tcetest_name} installer"
-	then
-		echo "Warning: ${tcetest_full_run_filename} is gzipped, will workaround that"
-		mv "${tcetest_full_run_filename}" "${tcetest_full_run_filename}.gz"
-		extract_tcetest_full_run_gz
-	fi
-}
-
-extract_tcetest_full_run_gz () {
-	echo "Extracting ${tcetest_name} installer: ${tcetest_full_run_gz_filename}"
-	if [ -f "$(get_temporary_filepath "${tcetest_full_run_filename}")" ]
+extract_tcetest_full_run_gz_gz () {
+	echo "Extracting ${tcetest_name} installer: ${tcetest_full_run_gz_gz_filename}"
+	if [ -f "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" ]
 	then
 		echo "Already there"
 		true
 	else
-		if gzip -d < "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" \
-		   > "$(get_temporary_filepath "${tcetest_full_run_filename}")"
+		if gzip -d < "$(get_temporary_filepath "${tcetest_full_run_gz_gz_filename}")" \
+		   > "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")"
 		then
 			echo "Done"
-			verify "$(get_temporary_filepath "${tcetest_full_run_filename}")"  "${tcetest_full_run_sum}" "${tcetest_name} installer"
+			verify "$(get_temporary_filepath "${tcetest_full_run_gz_filename}")"  "${tcetest_full_run_gz_sum}" "${tcetest_name} installer"
 		else
 			echo "Failure"
 			false
@@ -997,7 +979,7 @@ dump_tcetest_full_tar_gz () {
 		echo "Already there"
 		true
 	else
-		if dd if="$(get_temporary_filepath "${tcetest_full_run_filename}")" \
+		if dd if="$(get_temporary_filepath "${tcetest_full_run_gz_filename}")" \
 		      of="$(get_temporary_filepath "${tcetest_full_tar_gz_filename}")" \
 			  ibs="${tcetest_full_tar_gz_offset}" skip=1 obs=1024 status=none
 		then
