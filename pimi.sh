@@ -101,6 +101,7 @@ constants () {
 	cqbtest_patch_zip_hsize="11Mb"
 
 	tcetest_full_run_url="http://stealthzone.net/index.php?option=com_docman&task=doc_download&gid=3&Itemid=17"
+	# other url, same checksum, not gzipped too (wrong ext): http://zooi.widodh.nl/games/linux/truecombatelite/TrueCombatElite_v049_Linux.run.gz
 	tcetest_full_run_filename="TrueCombatElite_v049_Linux.run"
 	tcetest_full_run_sum="e3a0c0d4c65bed324b3f2f89ca77a51a162610a59333e58c621f651e42c97e7a180d04fe7f708530d97379d83d7a67f660c668ea3d93f7536fa390d91e9b49f4"
 	tcetest_full_run_header_sum="ea27895ad4cfbb3743b8ba726b966f0330cec5465f4da4b85e29152bdb8169ea159300ab77da2874af2f8948ec695364b538fd85de73a35cb468dc4229944f11"
@@ -1244,7 +1245,6 @@ download_and_install_tcetest () {
 	check_etlegacy_directory \
 	&& check_tcetest_directory \
 	&& download_tcetest \
-	&& extract_tcetest_full_run \
 	&& dump_tcetest_full_tar_gz \
 	&& pick_tcetest_full_tar_bz2 \
 	&& extract_tcetest_full_files \
