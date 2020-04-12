@@ -31,12 +31,12 @@ PIMI uses `wget` or `curl` to download stuff, `tar` (with gzip and bzip2 support
 Help
 ----
 
-From `./pimi.sh --help`:
+From `./pimi --help`:
 
 ```
-Usage: ./pimi.sh [OPTION]... MOD NAME [MOD NAME]...
+Usage: ./pimi [OPTION]... MOD NAME [MOD NAME]...
 
-./pimi.sh is a tool to install popular mods for ET:Legacy and ioquake3 engines.
+./pimi is a tool to install popular mods for ET:Legacy and ioquake3 engines.
 
 Without OPTION:
 - installs mods in Enemy Territory: Legacy and Quake Ⅲ Arena user directories.
@@ -88,27 +88,27 @@ MOD NAMES
 
 EXAMPLES
 To install Wolfenstein: Enemy Territory as an Enemy Territory: Legacy mod:
-$ ./pimi.sh etmain
+$ ./pimi etmain
 
 To install both TrueCombat:Close Quarters Battle and TrueCombat:Elite:
-$ ./pimi.sh cqbtest tcetest
+$ ./pimi cqbtest tcetest
 
 To install TrueCombat beta 0.45 build 12 as an OpenArena mod:
-$ ./pimi.sh -oa q3tc045
+$ ./pimi -oa q3tc045
 
 To purge already downloaded files without installing anything more:
-$ ./pimi.sh --purge-after nothing
+$ ./pimi --purge-after nothing
 
 To install TrueCombat beta 1.3 using a random temporary directory, automatically
 deleting temporary files, in non interactive mode:
-$ ./pimi.sh -p -ni -dl="$(mktemp -d)" truecombat
+$ ./pimi -p -ni -dl="$(mktemp -d)" truecombat
 
 To install TrueCombat:Elite inside Wolfenstein: Enemy Territory user directory
 which is not recommended at all:
-$ ./pimi.sh -etl="${HOME}/.etwolf" tcetest
+$ ./pimi -etl="${HOME}/.etwolf" tcetest
 
 To install all mods inside system directories:
-# ./pimi.sh -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
+# ./pimi -ioq="/usr/share/games/quake3" -etl="/usr/share/games/etlegacy" all
 ```
 
 Warning
