@@ -54,7 +54,7 @@ constants () {
 	quake3arena_user_directory=".q3a"
 	openarena_user_directory=".openarena"
 
-	default_temporary_directory="/tmp/pimi_files"
+	default_temporary_directory="${TMPDIR-/tmp}/pimi_files"
 
 	etmain_full_zip_url="http://filebase.trackbase.net/et/full/et260b.x86_full.zip"
 	etmain_full_zip_filename="et260b.x86_full.zip"
